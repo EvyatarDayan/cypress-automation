@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="975759a7-7555-422d-a531-e7ce0c11dbf2" name="Default Changelist" comment="cypressNewProject">
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tests/apesterAPI.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tests/apesterRes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tests/login.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tests/privacyPolicy.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tests/register.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tests/validLogin.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tools/general/getText.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/integration/tools/general/tryMe.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/support/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress.json" beforeDir="false" afterPath="$PROJECT_DIR$/cypress.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/aliasing.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/aliasing.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/assertions.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/assertions.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/connectors.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/connectors.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/cookies.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/cookies.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/cypress_api.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/cypress_api.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/files.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/files.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/local_storage.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/local_storage.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/location.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/location.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/misc.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/misc.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/navigation.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/navigation.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/network_requests.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/network_requests.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/querying.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/querying.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/spies_stubs_clocks.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/spies_stubs_clocks.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/traversal.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/traversal.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/utilities.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/utilities.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/viewport.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/viewport.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/waiting.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/waiting.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/2-advanced-examples/window.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/2-advanced-examples/window.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/support/commands.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/commands.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/support/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1utcsgDuIvwa7l9rZHVzxWtoQJP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.17.1" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.17.1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cypress/support" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cypress/support" />
+      <recent name="$PROJECT_DIR$/cypress/integration" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cypress" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="975759a7-7555-422d-a531-e7ce0c11dbf2" name="Default Changelist" comment="" />
+      <created>1625488536711</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625488536711</updated>
+      <workItem from="1625488538162" duration="3037000" />
+    </task>
+    <task id="LOCAL-00001" summary="Update">
+      <created>1625489285270</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1625489285270</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update">
+      <created>1625489452397</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1625489452397</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update">
+      <created>1625489496810</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1625489496810</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update">
+      <created>1625489553556</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625489553556</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update">
+      <created>1625489735168</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1625489735168</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update">
+      <created>1625490452014</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1625490452014</updated>
+    </task>
+    <task id="LOCAL-00007" summary="cypressNewProject">
+      <created>1625490704085</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625490704085</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update" />
+    <MESSAGE value="cypressNewProject" />
+    <option name="LAST_COMMIT_MESSAGE" value="cypressNewProject" />
+  </component>
+</project>

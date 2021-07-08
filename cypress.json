@@ -1,0 +1,9 @@
+{
+  "viewportWidth": 1400,
+  "viewportHeight": 1000,
+  "defaultCommandTimeout": 5000,
+  "video": false,
+  "chromeWebSecurity": false,
+  "reporter": "cypress-mochawesome-reporter",
+  "projectId": "9zx4si"
+}
