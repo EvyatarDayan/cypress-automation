@@ -9,8 +9,11 @@ declare namespace Cypress {
         attributeContains(a: string, b: string, c: string): Chainable
         urlContains(a: string): Chainable
         clickOn(a: string): Chainable
+        doubleClick(a: string): Chainable
         clickOnXpath(a: string): Chainable
+        doubleClickOnXpath(a: string): Chainable
         back(): Chainable
+        wait(a: number): Chainable
         refresh(): Chainable
         getText(a: string): Chainable
         clickOnText(a: string): Chainable
@@ -19,7 +22,9 @@ declare namespace Cypress {
         openInCurrentTab(a: string): Chainable
         clickIfExist(a: string): Chainable
         scrollToElement(a: string): Chainable
+        hoverElement(a: string): Chainable
         multipleClicks(a: string, b: number): Chainable
+        login(a: string, b: string): Chainable
 
         // iFrame
         switchToIframe(a: string): Chainable

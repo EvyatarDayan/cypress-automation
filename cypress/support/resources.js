@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 module.exports = {
 
 // URLs
@@ -12,15 +10,19 @@ module.exports = {
     },
 
     "stageUrls": {
-        "login": "https://portal.stg.apester.com/auth/login?",
-        "register": "https://portal.stg.apester.com/auth/signup?",
+        "login": "https://portal.automation.apester.dev/auth/login",
+        "register": "https://portal.automation.apester.dev/auth/signup?",
+        "privacyPolicy": "https://apester.com/privacy-policy/",
+        "termsOfService": "https://apester.com/terms-of-service/"
     },
 
 // Users
 //----------------------------------------------------------------------------------------------------------------
     "prodUsers": {
-        user1: {name: 'Tomato', lastname: 'One', email: 'tomato1@yopmail.com', password: 'Password1'},        // New user (after welcome wizard)
-        user2: {name: 'Tomato', lastname: 'Two', email: 'tomato2@yopmail.com', password: 'Password1'}         // New user (welcome wizard)
+        admin: {name: 'Evyatar', lastname: 'Dayan', email: 'evyatar.dayan@apester.com', password: 'Password1'},
+        user1: {name: 'Tomato', lastname: 'One', email: 'tomato1@yopmail.com', password: 'Password1'},
+        user2: {name: 'Tomato', lastname: 'Two', email: 'tomato2@yopmail.com', password: 'Password1'}
+
     },
 
     "stageUsers": {

@@ -27,6 +27,8 @@ import 'cypress-mochawesome-reporter/register';
 import '@bahmutov/cy-api/support';
 import 'cypress-xpath';
 import 'cypress-iframe';
+import "cypress-real-events/support";
+
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

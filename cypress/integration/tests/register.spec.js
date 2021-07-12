@@ -1,6 +1,6 @@
 'use strict';
 
-const apesterRes = require("./apesterRes");
+const apesterRes = require("../../support/resources");
 
 describe('Register', () => {
 

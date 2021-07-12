@@ -1,6 +1,6 @@
-/// <reference path="../support/index.d.ts" />
+'use strict';
 
-const apesterRes = require("./apesterRes");
+const apesterRes = require("../../support/resources");
 
 describe('Login', () => {
 
@@ -21,7 +21,7 @@ describe('Login', () => {
         .clickOn('.apeButton')
         .textContains('.error', 'Invalid Data.')                      // Check error message
         .clickOn('.link')                                             // Click on "return to log in"
-        .urlContains(apesterRes.urls.login)                           // Validate back to login page
+        .urlContains(apesterRes.stageUrls.login)                           // Validate back to login page
   })
 
   it('Step 2 - Forgot password - existing email', () => {

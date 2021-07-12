@@ -1,7 +1,6 @@
-/// <reference path="../support/index.d.ts" />
-/// <reference types="Cypress" />
+'use strict';
 
-const apesterRes = require("./apesterRes");
+const apesterRes = require("../../support/resources");
 
 describe('Login', () => {
 

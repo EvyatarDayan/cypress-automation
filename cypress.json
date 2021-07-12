@@ -1,6 +1,7 @@
 {
   "viewportWidth": 1400,
   "viewportHeight": 1000,
+  "failOnStatusCode": false,
   "defaultCommandTimeout": 5000,
   "video": false,
   "chromeWebSecurity": false,

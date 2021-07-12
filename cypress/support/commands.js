@@ -1,5 +1,8 @@
+'use strict';
 
-                                         // -------- CUSTOM COMMANDS -------- //
+const apesterRes = require("./resources");
+
+// -------- CUSTOM COMMANDS -------- //
 
 // ACTIONS
 //--------------------------------------------------------------------------------------------------------------------------------------
@@ -9,9 +12,20 @@ Cypress.Commands.add('clickOn', (selector)  => {
     cy.get(selector).click()
 })
 
+// -- doubleClick --
+Cypress.Commands.add('doubleClick', (selector)  => {
+    cy.get(selector).dblclick()
+})
+
 // -- clickOnXpath --
 Cypress.Commands.add('clickOnXpath', (xpath)  => {
     cy.xpath(xpath).click()
+})
+
+// -- doubleClickOnXpath --
+Cypress.Commands.add('doubleClickOnXpath', (xpath)  => {
+    cy.clickOnXpath(xpath).doubleClick()
+
 })
 
 // -- multipleClicks --
@@ -46,6 +60,11 @@ Cypress.Commands.add('back', ()  => {
     cy.go('back')
 })
 
+// -- wait --
+Cypress.Commands.add('wait', (ms)  => {
+    cy.wait(ms)
+})
+
 // -- refresh --
 Cypress.Commands.add('refresh', ()  => {
     cy.reload()
@@ -66,10 +85,23 @@ Cypress.Commands.add('scrollToElement', (selector)  => {
     cy.get(selector).scrollIntoView();
 })
 
+// -- hoverElement --
+Cypress.Commands.add('hoverElement', (selector)  => {
+    cy.get(selector).realHover('center');
+})
+
 // -- openInCurrentTab --                                       // This will remove "target" att from the
 Cypress.Commands.add('openInCurrentTab', (selector)  => {       // element in order to open the link in the same tab
     cy.get(selector).invoke('removeAttr', 'target').click()     // (Cypress not supporting multiple tabs)
 })
+
+// -- login --
+Cypress.Commands.add('login', (email, password)  => {
+        cy.typeValue('[style="grid-row:1"] > .InputField_input__1JpI-', email)
+        cy.typeValue('[style="grid-row:3"] > .InputField_input__1JpI-', password)
+        cy.clickOn('.apeButton')
+})
+
 
 // ASSERTIONS
 //--------------------------------------------------------------------------------------------------------------------------------------
