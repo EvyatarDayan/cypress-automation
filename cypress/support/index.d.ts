@@ -7,14 +7,20 @@ declare namespace Cypress {
         propertyContains(a: string, b: string, c: string): Chainable
         elementExist(a: string): Chainable
         attributeContains(a: string, b: string, c: string): Chainable
+        updateAttr(a: string, b: string, c: string): Chainable
         urlContains(a: string): Chainable
         clickOn(a: string): Chainable
         doubleClick(a: string): Chainable
+        backspaceKey(a: string, b: number): Chainable
         clickOnXpath(a: string): Chainable
+        typeValueByXpath(a: string, b: string): Chainable
         doubleClickOnXpath(a: string): Chainable
         back(): Chainable
-        wait(a: number): Chainable
+        waitFor(a: number): Chainable
         refresh(): Chainable
+        pauseHere(): Chainable
+        checkCheckbox(a: string): Chainable
+        uncheckCheckbox(a: string): Chainable
         getText(a: string): Chainable
         clickOnText(a: string): Chainable
         validateCookie(a: string, b: string): Chainable
@@ -22,6 +28,7 @@ declare namespace Cypress {
         openInCurrentTab(a: string): Chainable
         clickIfExist(a: string): Chainable
         scrollToElement(a: string): Chainable
+        scrollToPosition(a: number, b: number): Chainable
         hoverElement(a: string): Chainable
         multipleClicks(a: string, b: number): Chainable
         login(a: string, b: string): Chainable

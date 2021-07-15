@@ -28,6 +28,7 @@ import '@bahmutov/cy-api/support';
 import 'cypress-xpath';
 import 'cypress-iframe';
 import "cypress-real-events/support";
+import '@4tw/cypress-drag-drop'
 
 
 // Alternatively you can use CommonJS syntax:

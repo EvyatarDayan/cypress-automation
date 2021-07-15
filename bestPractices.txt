@@ -1,0 +1,50 @@
+// Best practices
+
+
+// ----------------------------------------------------------------------------------------------
+// cy.reload()                                                  Refresh
+// ----------------------------------------------------------------------------------------------
+// cy.get('[name=email]').clear()                               clear field
+// ----------------------------------------------------------------------------------------------
+// cy.get('[name=new-password]').eq(0)                          select a selector with the same name .eq(0) select the first one
+
+// ----------------------------------------------------------------------------------------------
+//  it('Step # - description', () => {                          Basic "it" function
+//      cy...
+//  })
+// ----------------------------------------------------------------------------------------------
+// cy.get('[href="https://apester.com/terms"]').invoke('removeAttr', 'target').click()      click on link after removing "target" attribute (will open on the same tab rather than a new one)
+
+
+
+// ASSERTIONS
+// ----------------------------------------------------------------------------------------------
+// cy.get('.Button_disabled__3-vAf').should('not.exist')                                            element don't exist
+// ----------------------------------------------------------------------------------------------
+// cy.get('[name=new-password]').should('have.css', 'border-color', 'rgb(83, 151, 255)')            property contain value
+// ----------------------------------------------------------------------------------------------
+// cy.get('.InputField_error__2iPLp').contains('Passwords do not match.')                           element contain text
+// ----------------------------------------------------------------------------------------------
+// cy.get('[href="https://apester.com/privacy"]').should('have.attr', 'href', 'https://apester.com/privacy')    attribute contain text
+// ----------------------------------------------------------------------------------------------
+// cy.url().should('contain', 'https://apester.com/terms-of-service/')                              URL contain text
+
+
+// RUN
+// ----------------------------------------------------------------------------------------------
+// Activate the runner
+// ./node_modules/.bin/cypress open
+// ----------------------------------------------------------------------------------------------
+// Run via reporter dashboard
+// cypress run --record --key 8aabfc08-b1df-45a7-91a3-a6a52eb211d5                  // this is the Record Key
+
+
+
+// Troubleshooting
+// -------------------------------------------------------------------------------------------------------------------------------
+// Problem: Project dependencies lost (no autocomplete):
+// Solution: Go to File->Project structure->Modules click on + and select "Import modules" - Select the project folder.
+// -------------------------------------------------------------------------------------------------------------------------------
+// Problem: Element is covered by another element
+// Solution: Use force on the click, e.g. cy.get('.icon').click({force:true})
+// -------------------------------------------------------------------------------------------------------------------------------

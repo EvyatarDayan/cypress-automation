@@ -9,7 +9,7 @@ const apesterRes = require("./resources");
 
 // -- clickOn --
 Cypress.Commands.add('clickOn', (selector)  => {
-    cy.get(selector).click()
+    cy.get(selector).click({force:true})
 })
 
 // -- doubleClick --
@@ -22,10 +22,14 @@ Cypress.Commands.add('clickOnXpath', (xpath)  => {
     cy.xpath(xpath).click()
 })
 
+// -- typeValueByXpath --
+Cypress.Commands.add('typeValueByXpath', (xpath, value)  => {
+    cy.xpath(xpath).type(value, {force: true})
+})
+
 // -- doubleClickOnXpath --
 Cypress.Commands.add('doubleClickOnXpath', (xpath)  => {
-    cy.clickOnXpath(xpath).doubleClick()
-
+    cy.xpath(xpath).dblclick({force: true})
 })
 
 // -- multipleClicks --
@@ -33,6 +37,13 @@ Cypress.Commands.add('multipleClicks', (selector, numberOfTimes)  => {
     for (let i = 0; i < numberOfTimes; i++) {
         cy.get(selector).click()
             .wait(500)
+    }
+})
+
+// -- backspaceKey --
+Cypress.Commands.add('backspaceKey', (selector, numberOfTimes)  => {
+    for (let i = 0; i < numberOfTimes; i++) {
+        cy.get(selector).type('{backspace}')
     }
 })
 
@@ -60,14 +71,29 @@ Cypress.Commands.add('back', ()  => {
     cy.go('back')
 })
 
-// -- wait --
-Cypress.Commands.add('wait', (ms)  => {
-    cy.wait(ms)
-})
-
 // -- refresh --
 Cypress.Commands.add('refresh', ()  => {
     cy.reload()
+})
+
+// -- waitFor --
+Cypress.Commands.add('waitFor', (time)  => {
+    cy.wait(time)
+})
+
+// -- pauseHere --
+Cypress.Commands.add('pauseHere', ()  => {
+    cy.pause()
+})
+
+// -- checkCheckbox --
+Cypress.Commands.add('checkCheckbox', (selector)  => {
+    cy.get(selector).check({force:true})
+})
+
+// -- uncheckCheckbox --
+Cypress.Commands.add('uncheckCheckbox', (selector)  => {
+    cy.get(selector).uncheck({force:true})
 })
 
 // -- getText --
@@ -85,9 +111,19 @@ Cypress.Commands.add('scrollToElement', (selector)  => {
     cy.get(selector).scrollIntoView();
 })
 
+// -- scrollToPosition --
+Cypress.Commands.add('scrollToPosition', (x, y)  => {
+    cy.scrollTo(x, y)
+})
+
 // -- hoverElement --
 Cypress.Commands.add('hoverElement', (selector)  => {
     cy.get(selector).realHover('center');
+})
+
+// -- updateAttr --
+Cypress.Commands.add('updateAttr', (selector, attrName, attrValue)  => {
+    cy.get(selector).invoke('attr', attrName, attrValue)
 })
 
 // -- openInCurrentTab --                                       // This will remove "target" att from the

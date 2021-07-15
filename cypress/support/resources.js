@@ -46,4 +46,37 @@ module.exports = {
     "invalidPass":
         ['password1', 'P@ssword','PASSWORD', 'password', 'Pass1'],
 
+
+// Color selection
+//----------------------------------------------------------------------------------------------------------------
+
+    "colors":
+        [   '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(1) > :nth-child(1) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(1) > :nth-child(1) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(1) > :nth-child(2) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(1) > :nth-child(3) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(1) > :nth-child(4) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(1) > :nth-child(5) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(2) > :nth-child(1) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(2) > :nth-child(2) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(2) > :nth-child(3) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(2) > :nth-child(4) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(2) > :nth-child(5) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(3) > :nth-child(1) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(3) > :nth-child(2) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(3) > :nth-child(3) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(3) > :nth-child(4) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(3) > :nth-child(5) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(4) > :nth-child(1) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(4) > :nth-child(2) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(4) > :nth-child(3) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(4) > :nth-child(4) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(4) > :nth-child(5) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(5) > :nth-child(1) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(5) > :nth-child(2) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(5) > :nth-child(3) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(5) > :nth-child(4) > .palette-color-container > .palette-color',
+            '.canvas > .ape-color-picker-container > .pallete-wrapperer > :nth-child(5) > :nth-child(5) > .palette-color-container > .palette-color'
+        ],
+
 };

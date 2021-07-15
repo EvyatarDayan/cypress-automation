@@ -1,0 +1,31 @@
+{
+  "name": "cypress-automation",
+  "version": "1.0.0",
+  "description": "Cypress automation framework and tests 111",
+  "main": "index.js",
+  "dependencies": {
+    "@4tw/cypress-drag-drop": "^1.6.0",
+    "@bahmutov/cy-api": "^1.5.0",
+    "cypress-iframe": "^1.0.1",
+    "cypress-mochawesome-reporter": "^2.2.0",
+    "cypress-real-events": "^1.5.0",
+    "cypress-xpath": "^1.6.2",
+    "kuker-emitters": "^6.7.4"
+  },
+  "devDependencies": {
+    "cypress": "^7.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apester-dev/cypress-automation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apester-dev/cypress-automation/issues"
+  },
+  "homepage": "https://github.com/apester-dev/cypress-automation#readme"
+}
