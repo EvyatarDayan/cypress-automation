@@ -1,12 +1,13 @@
 'use strict';
 
-const apesterRes = require("../../../../support/resources");
+const res = require("../../../../../support/res");
 
 describe('Edit personality', () => {
 
     it('Login', () => {
-        cy.visit(apesterRes.stageUrls.login)
-        cy.login(apesterRes.stageUsers.user1.email, apesterRes.stageUsers.user1.password)
+        cy
+        .goto(res.automationUrls.login)
+        .login(res.automationUsers.user1.email, res.automationUsers.user1.password)
     })
 
     it('Navigate to edit page', () => {

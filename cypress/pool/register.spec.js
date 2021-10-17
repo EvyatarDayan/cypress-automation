@@ -1,11 +1,11 @@
 'use strict';
 
-const apesterRes = require("../../support/resources");
+const res = require("../support/res");
 
 describe('Register', () => {
 
   it('Navigate to URL', () => {
-    cy.visit(apesterRes.stageUrls.register)
+    cy.goto(res.automationUrls.register)
   })
 
   it('Step 1 - email validation', () => {
@@ -14,17 +14,17 @@ describe('Register', () => {
         .typeValue('[name=family-name]', 'Ross')
 
     //Invalid emails
-    for (let i=0 ; i < apesterRes.emailInvalid.length ;i++){
+    for (let i=0 ; i < res.emailInvalid.length ;i++){
       cy
-          .typeValue('[name=email]', apesterRes.emailInvalid[i])
+          .typeValue('[name=email]', res.emailInvalid[i])
           .textContains('.InputField_error__2iPLp', 'Invalid Email')
           .clearValue('[name=email]')
     }
 
     //Valid emails
-    for (let i=0 ; i < apesterRes.emailValid.length ;i++){
+    for (let i=0 ; i < res.emailValid.length ;i++){
       cy
-          .typeValue('[name=email]', apesterRes.emailValid[i])
+          .typeValue('[name=email]', res.emailValid[i])
           .elementNotExist('.InputField_error__2iPLp')
           .clearValue('[name=email]')
     }
@@ -34,17 +34,17 @@ describe('Register', () => {
     cy.typeValue('[name=email]', 'abc123@apester.com')
 
     //Invalid passwords
-    for (let i=0 ; i < apesterRes.invalidPass.length ;i++){
+    for (let i=0 ; i < res.invalidPass.length ;i++){
       cy
-          .typeValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-', apesterRes.invalidPass[i])
+          .typeValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-', res.invalidPass[i])
           .propertyContains('[name=new-password]', 'border-color', 'rgb(238, 46, 61)')
           .clearValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-')
     }
 
     //Valid passwords
-    for (let i=0 ; i < apesterRes.validPass.length ;i++){
+    for (let i=0 ; i < res.validPass.length ;i++){
       cy
-          .typeValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-', apesterRes.validPass[i])
+          .typeValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-', res.validPass[i])
           .propertyContains('[name=new-password]', 'border-color', 'rgb(83, 151, 255)')
           .clearValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-')
     }
@@ -163,11 +163,11 @@ describe('Register', () => {
   it('Step 6 - Register with existing user', () => {
     cy
         .refresh()
-        .typeValue('[name=given-name]', apesterRes.stageUsers.user1.name)
-        .typeValue('[name=family-name]', apesterRes.stageUsers.user1.lastname)
-        .typeValue('[name=email]', apesterRes.stageUsers.user1.email)
-        .typeValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-', apesterRes.stageUsers.user1.password)
-        .typeValue('[style="grid-row:7;grid-column:1 / 3"] > .InputField_input__1JpI-', apesterRes.stageUsers.user1.password)
+        .typeValue('[name=given-name]', res.automationUsers.user1.name)
+        .typeValue('[name=family-name]', res.automationUsers.user1.lastname)
+        .typeValue('[name=email]', res.automationUsers.user1.email)
+        .typeValue('[style="grid-row:5;grid-column:1 / 3"] > .InputField_input__1JpI-', res.automationUsers.user1.password)
+        .typeValue('[style="grid-row:7;grid-column:1 / 3"] > .InputField_input__1JpI-', res.automationUsers.user1.password)
     // .clickOn('.apeButton')
   })
 })

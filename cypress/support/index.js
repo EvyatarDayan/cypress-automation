@@ -28,7 +28,9 @@ import '@bahmutov/cy-api/support';
 import 'cypress-xpath';
 import 'cypress-iframe';
 import "cypress-real-events/support";
-import '@4tw/cypress-drag-drop'
+import '@4tw/cypress-drag-drop';
+import 'cypress-lighthouse';
+import 'cypress-terminal-report/src/installLogsCollector';
 
 
 // Alternatively you can use CommonJS syntax:

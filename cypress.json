@@ -1,9 +1,10 @@
 {
   "viewportWidth": 1400,
   "viewportHeight": 1000,
-  "failOnStatusCode": false,
   "scrollBehavior": false,
-  "defaultCommandTimeout": 5000,
+  "failOnStatusCode": false,
+  "defaultCommandTimeout": 7000,
+  "requestTimeout":7000,
   "video": false,
   "chromeWebSecurity": false,
   "reporter": "cypress-mochawesome-reporter",

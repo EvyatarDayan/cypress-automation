@@ -9,9 +9,13 @@ declare namespace Cypress {
         attributeContains(a: string, b: string, c: string): Chainable
         updateAttr(a: string, b: string, c: string): Chainable
         urlContains(a: string): Chainable
+        goto(a: string): Chainable
         clickOn(a: string): Chainable
+        clickOnByPixels(a: string, b: number, c: number): Chainable
+        selectFromDropdown(a: string, b: string): Chainable
         doubleClick(a: string): Chainable
         backspaceKey(a: string, b: number): Chainable
+        selectText(a: string, b: number): Chainable
         clickOnXpath(a: string): Chainable
         typeValueByXpath(a: string, b: string): Chainable
         doubleClickOnXpath(a: string): Chainable
@@ -31,7 +35,20 @@ declare namespace Cypress {
         scrollToPosition(a: number, b: number): Chainable
         hoverElement(a: string): Chainable
         multipleClicks(a: string, b: number): Chainable
+        dragAndDrop(a: string, b: string)
+        dragAndDropByPixels(a: string, b: number, c: number)
+        dragAndDropByXpath(a: string, b: string)
+        dragAndDropByPixelsByXpath(a: string, b: number, c: number)
         login(a: string, b: string): Chainable
+        preserveCookie(a: string): Chainable
+
+        // events
+        startEventListener(): Chainable
+        eventExist(a: string): Chainable
+        eventStatusCode(a: string, b: number): Chainable
+        eventPropertyContains(a: string, b: string, c: string): Chainable
+        eventMetadataContains(a: string, b: string, c: string): Chainable
+
 
         // iFrame
         switchToIframe(a: string): Chainable
@@ -40,5 +57,7 @@ declare namespace Cypress {
         iframeClickOnText(a: string, b: string): Chainable
         iframeTypeValue(a: string, b: string, c: string): Chainable
 
+        // Performance
+        checkPerformance(a: string, b: number): Chainable
     }
 }

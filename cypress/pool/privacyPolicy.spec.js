@@ -1,11 +1,11 @@
 'use strict';
 
-const apesterRes = require("../../support/resources");
+const res = require("../support/res");
 
 describe('Login', () => {
 
   it('Navigate to URL', () => {
-    cy.visit(apesterRes.stageUrls.privacyPolicy).wait(1000)
+    cy.goto(res.automationUrls.privacyPolicy).wait(1000)
         // .scrollTo(0, 2354)
         .scrollToElement('.elementor-element-27ba68a > .elementor-widget-container > .elementor-heading-title')
         .multipleClicks('#tablepress-5_length > label > select', 3)

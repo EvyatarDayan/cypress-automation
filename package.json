@@ -4,16 +4,24 @@
   "description": "Cypress automation framework and tests 111",
   "main": "index.js",
   "dependencies": {
-    "@4tw/cypress-drag-drop": "^1.6.0",
     "@bahmutov/cy-api": "^1.5.0",
+    "create-html": "^4.1.0",
     "cypress-iframe": "^1.0.1",
+    "cypress-lighthouse": "^0.1.0",
     "cypress-mochawesome-reporter": "^2.2.0",
     "cypress-real-events": "^1.5.0",
     "cypress-xpath": "^1.6.2",
-    "kuker-emitters": "^6.7.4"
+    "dayjs": "^1.10.6",
+    "file-system": "^1.2.2",
+    "html-template": "^1.2.2",
+    "http-server": "^13.0.2",
+    "kuker-emitters": "^6.7.4",
+    "randomstring": "^1.2.1"
   },
   "devDependencies": {
-    "cypress": "^7.7.0"
+    "@4tw/cypress-drag-drop": "^1.6.0",
+    "cypress": "^8.3.1",
+    "cypress-terminal-report": "^3.3.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

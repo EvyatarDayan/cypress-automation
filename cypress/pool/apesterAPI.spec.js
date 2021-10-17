@@ -1,4 +1,4 @@
-// const apesterRes = require("../../apester/apesterRes");
+// const res = require("../../apester/res");
 
 describe('API Test', () => {
 

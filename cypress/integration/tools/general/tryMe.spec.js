@@ -1,18 +1,12 @@
+'use strict';
 
-// const apesterRes = require("../../apester/apesterRes");
+const res = require("../../../support/res");
 
-describe('Get text from element', () => {
+describe('Edit gallery', () => {
 
-  it('Step 1 - Navigate to element page', () => {
-    cy.visit("https://admin.bold360.com")
+  it('measures page load on the home page', () => {
+    cy.visit('https://portal.automation.apester.dev/auth/login', {
 
+    })
   })
-
-  it('Step 2 - Get text', () => {
-    cy
-        .openInCurrentTab('.lineBig')
-  })
-});
-
-
-/// this is new
+})
