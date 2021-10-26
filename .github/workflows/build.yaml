@@ -1,0 +1,102 @@
+name: BUILD
+
+on:
+  push:
+    branches: 
+      - '**'   # any 
+    paths-ignore:
+      - '.deploy/**'
+      - '.env-config/**'
+      - 'cypress/integration/**'
+
+jobs:
+  build-prod:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout branch
+      id:   checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+        token: ${{ secrets.GH_TOKEN }}
+        fetch-depth: '0'
+        ssh-key: ${{ secrets.GH_KEY }}
+        persist-credentials: 'false'
+
+    - name: GCP auth
+      env:
+        GCP_KEY: ${{ secrets.GCP_KEY }}
+      run: |
+        echo $GCP_KEY | base64 --decode --ignore-garbage | gcloud auth activate-service-account --quiet --key-file -
+        gcloud auth configure-docker --quiet
+
+    - name: Deploy ssh-agent
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.GH_KEY }}
+
+    - name: Infra streamliner
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      run:  |
+        curl --header "Authorization: token $GITHUB_TOKEN" --header 'Accept: application/vnd.github.v3.raw' --location https://api.github.com/repos/apester-dev/infra/contents/deploy/streamliner.sh | /bin/bash -x
+
+    - name: Set commit sha as current release
+      run:  echo "${GITHUB_SHA}" > .deploy/release
+
+    - name: Run docker build
+      env:
+        DOCKER_BUILDKIT: 1
+      run:  docker build -t "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:prod-${GITHUB_SHA}" .
+
+    - name: Run docker push
+      run: |
+        set -x
+        docker push "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:prod-${GITHUB_SHA}"  
+        gcloud container images add-tag "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:prod-${GITHUB_SHA}" "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:dev-${GITHUB_SHA}"
+
+        # Add "latest" tags if they do not exist
+        for deployEnv in `ls .deploy/*.json | sed 's~^.deploy/~~' | sed 's~.json$~~' | xargs` ; do
+          existing_tags=$(gcloud container images list-tags --filter="tags:${deployEnv}-latest" --format=json gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}) || true
+          if [ "$existing_tags" == "[]" ]; then
+            gcloud container images add-tag "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:prod-${GITHUB_SHA}" "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:${deployEnv}-latest"
+          fi
+        done
+
+        # Add master-<sha> tag to the production image if running from the master branch
+        branch=$(git branch -r --contains ${GITHUB_REF})
+        if [ "$branch" == "  origin/master" ] ; then
+          gcloud container images add-tag "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:prod-${GITHUB_SHA}" "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:master-${GITHUB_SHA}"
+        fi
+
+        env
+
+    - name: Instant deploy
+      if: contains(github.event.head_commit.message, '#deploy') &&  github.ref != 'refs/heads/master'
+      env:
+        ACTOR:          ${{ github.actor }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+      run: |
+        set -x
+        for deployEnv in `ls .deploy/*.json | sed 's~^.deploy/~~' | sed 's~.json$~~' | xargs` ; do
+          echo "$COMMIT_MESSAGE" | grep " #deploy $deployEnv" && {
+            # Check if old-dev deploy file contains the release part
+            grep "release" .deploy/${deployEnv}.json && cat .deploy/${deployEnv}.json | jq -r ".envClass" | grep "^dev$" && {
+              branchLegalizedName=`echo ${GITHUB_REF#refs/heads/} | tr [/] [_]`
+              gcloud container images add-tag "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:dev-${GITHUB_SHA}" "gcr.io/apester-infra/${GITHUB_REPOSITORY#*/}:dev-${ACTOR}-${branchLegalizedName}-${GITHUB_SHA}"
+              jq ".release = \"dev-${ACTOR}-${branchLegalizedName}-${GITHUB_SHA}\"" .deploy/${deployEnv}.json > .deploy/${deployEnv}.json.tmp && mv -f .deploy/${deployEnv}.json.tmp .deploy/${deployEnv}.json
+              msg=`echo -n $COMMIT_MESSAGE | sed 's~ #deploy .*$~~g'`
+              git config user.name github-actions
+              git config user.email github-actions@github.com
+              git add .deploy/${deployEnv}.json
+              git commit -m "Instant deploy for: $msg"
+              git push -v
+            } || true
+          } || true
+        done
+

@@ -1,0 +1,7 @@
+{
+  "cluster": "gke-dev",
+  "namespace": "stg-main",
+  "release": "dev-fail",
+  "autoDeployTags": "false",
+  "envClass": "dev"
+}

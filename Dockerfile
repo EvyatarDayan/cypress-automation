@@ -1,49 +1,41 @@
 FROM ubuntu:20.04
 
-RUN apt-get update
-RUN apt-get -y install curl lsof nodejs
+# Install prerequisites
 ADD security.list /etc/apt/sources.list.d/security.list
+RUN export DEBIAN_FRONTEND=noninteractive
+RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install curl lsof nodejs nginx fcgiwrap libfcgi-dev spawn-fcgi git openssh-client libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb jq
 RUN apt-get -y install npm --fix-missing
+RUN echo "deb http://packages.cloud.google.com/apt gcsfuse-focal main" | tee /etc/apt/sources.list.d/gcsfuse.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN apt-get update
+RUN apt-get -y install gcsfuse
 
-# install git
-RUN apt-get -y install git openssh-client
-
-# Add credentials
+# Prepare credentials dir
 RUN mkdir -p /root/.ssh
-ADD id_rsa /root/.ssh/id_rsa
 RUN chmod 700 /root/.ssh
-RUN chmod 400 /root/.ssh/id_rsa
 RUN chown -R root:root /root/.ssh
-
-# Clone automation repo
 RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-RUN git clone git@github.com:apester-dev/cypress-automation.git -v
 
 # Install npm
 ADD . /app
 WORKDIR /app
-RUN apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y
 RUN npm install --save-dev -D cypress-iframe@1.0.1
 RUN npm install --save-dev cypress@>=6.2.0
 RUN npm install --save cypress@>=6.2.0
 RUN npm install --save-dev @types/cypress@^1.1.0
 RUN npm install --save-dev mochawesome@6.3.1
 RUN npm install --save-dev mocha@>=7
-
-# Dependencies
 RUN npm install
 
-ADD run.sh /run.sh
-RUN chmod +x /run.sh
-
-
-
-
-
-
-
-
-
-
+ADD .deploy/run.sh /run.sh
+ADD vhost.conf /etc/nginx/sites-available/default
+RUN mkdir -p /usr/share/nginx/check /usr/share/nginx/reports /usr/share/nginx/html
+RUN chown www-data /usr/share/nginx/reports /usr/share/nginx/check /usr/share/nginx/html
+ADD .deploy/ts /TS
+ADD .deploy/release /RELEASE
+ADD .deploy/configurator.sh /configurator.sh
+ADD .deploy/run.sh /run.sh
+RUN chmod +x /configurator.sh /run.sh
 CMD /run.sh
-

@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cypress-automation-releases
+data:
+  interaction-releases.conf: |+
+    RELEASES_LOADED=1

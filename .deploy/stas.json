@@ -1,0 +1,7 @@
+{
+  "cluster": "gke-dev",
+  "namespace": "stas-main",
+  "release": "dev-fail",
+  "autoDeployTags": "true",
+  "envClass": "dev"
+}

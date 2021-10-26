@@ -1,0 +1,7 @@
+{
+  "cluster": "gke-dev",
+  "namespace": "automation-main",
+  "release": "dev-Nadavpe-feat_INFRA-473_Create_cypress-automation_service-81c53327587769ddddac4e846fa605092a3b44c0",
+  "autoDeployTags": "true",
+  "envClass": "dev"
+}

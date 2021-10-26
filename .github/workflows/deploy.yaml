@@ -1,0 +1,76 @@
+# This file comes from the infra repo. 
+# If you wish to have a dedicated different file instead of this one, add "CUSTOM_DEPLOY" env variable to the streamliner step of your development build, with the value "true"
+
+name: DEPLOY
+
+on:
+  push:
+    paths: 
+      - '.deploy/*.json'   
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Setup timezone
+      uses: zcong1993/setup-timezone@v1.0
+      with:
+        timezone: Asia/Jerusalem
+
+    - name: Checkout branch
+      id:   checkout
+      uses: actions/checkout@v2
+      with:
+        ref:  ${{ github.ref }}
+        path: 'target'
+
+    - name: Checkout infra
+      id:   checkout-infra
+      uses: actions/checkout@v2
+      with:
+        repository: apester-dev/infra
+        ref:        refs/heads/master
+        path:       infra
+        token:      ${{ secrets.GH_TOKEN }}
+
+    - name: Get Changed Files
+      id:   changedFiles
+      uses: lots0logs/gh-action-get-changed-files@2.1.4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: GCP auth
+      env:
+        GCP_KEY: ${{ secrets.GCP_KEY }}
+      run: |
+        echo $GCP_KEY | base64 --decode --ignore-garbage | gcloud auth activate-service-account --quiet --key-file -
+        gcloud auth configure-docker --quiet
+
+    - name: Deploy updated environments
+      id: deploy
+      run: infra/deploy/deploy.sh
+      env:
+        COMMIT_MESSAGE:    ${{ github.event.head_commit.message }}
+        SLACK_URL:         ${{ secrets.SLACK_DEPLOYMENT_URL }}
+        ACTOR:             ${{ github.actor }}
+        OPENVPN_DEV_CONF:  ${{ secrets.OPENVPN_DEV_CONF }}
+
+    - name: Add a comment
+      if:   steps.deploy.outputs.message
+      uses: daohoangson/comment-on-github@v2.2.0
+      with:
+        body: ${{ steps.deploy.outputs.message }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       
+
+    - name: Clean-up openvpn
+      if:   always()
+      run:  sudo killall openvpn || true
