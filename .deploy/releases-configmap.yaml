@@ -6,3 +6,4 @@ metadata:
 data:
   interaction-releases.conf: |+
     RELEASES_LOADED=1
+    RELEASE_f4f3a6ee283e6546b5e4402bebd5e186c9b5c9bc=v0.0.1
