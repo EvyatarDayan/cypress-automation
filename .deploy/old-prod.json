@@ -2,6 +2,6 @@
     "cluster":        "old-prod",
     "namespace":      "default",
     "release":        "prod-fail",
-    "autoDeployTags": "false"
+    "autoDeployTags": "false",
     "envClass":       "prod"
 }
