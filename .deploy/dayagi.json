@@ -1,7 +1,7 @@
 {
   "cluster": "gke-dev",
   "namespace": "dayagi-main",
-  "release": "dev-fail",
+  "release": "v0.0.3",
   "autoDeployTags": "true",
   "envClass": "dev"
 }
