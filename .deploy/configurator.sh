@@ -33,16 +33,16 @@ else
   [ -r /releases ] && . /releases
   releaseName="RELEASE_${RELEASE}"
   [ -z "${!releaseName}" ] || {
-    TS=$(</TS)
-    srcRelease="444.222.${TS}"
     tgtRelease=`echo "${!releaseName}" | sed 's~^v~~'`
-    [ -z "$CONFIGURATOR_RELEASE_REPLACE"] || {
-      echo "$CONFIGURATOR_RELEASE_REPLACE" | while read -r src ; do
-        find $src -type f -exec sed -i "s~$srcRelease~$tgtRelease~g" {} \;
-      done
-    }
     export RELEASE=$tgtRelease
     echo $RELEASE > /RELEASE
+  }
+  TS=$(</TS)
+  srcRelease="444.222.${TS}"
+  [ -z "$CONFIGURATOR_RELEASE_REPLACE"] || {
+    echo "$CONFIGURATOR_RELEASE_REPLACE" | while read -r src ; do
+      find $src -type f -exec sed -i "s~$srcRelease~$RELEASE~g" {} \;
+    done
   }
 
   # Perform env replacements in files
