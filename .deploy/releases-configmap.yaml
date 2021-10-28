@@ -7,3 +7,4 @@ data:
   interaction-releases.conf: |+
     RELEASES_LOADED=1
     RELEASE_f4f3a6ee283e6546b5e4402bebd5e186c9b5c9bc=v0.0.1
+    RELEASE_573ee088b7c2c3a8b0ca4ee3e8d36e7992dee648=v0.0.3
