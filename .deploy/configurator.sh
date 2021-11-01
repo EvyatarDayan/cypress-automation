@@ -53,6 +53,7 @@ else
           value=$(</tmp/configurator/$key)
           find $src -type f -exec sed -i "s~___${key}___~${value}~g" {} \;
         done
+	find $src -type f -exec sed -i "s~___RELEASE___~${RELEASE}~g" {} \;
       elif [ "$key" == "URLS" ] ; then
         for key in `ls /tmp/configurator/ | grep  '_URL$'` ; do
           value=$(</tmp/configurator/$key)
