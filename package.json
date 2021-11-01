@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@bahmutov/cy-api": "^1.5.0",
+    "axios": "^0.24.0",
     "create-html": "^4.1.0",
     "cypress-iframe": "^1.0.1",
     "cypress-lighthouse": "^0.1.0",
@@ -16,15 +17,21 @@
     "html-template": "^1.2.2",
     "http-server": "^13.0.2",
     "kuker-emitters": "^6.7.4",
-    "randomstring": "^1.2.1"
-  },
-  "devDependencies": {
-    "@4tw/cypress-drag-drop": "^1.6.0",
+    "randomstring": "^1.2.1",
     "cypress": "^8.3.1",
     "cypress-terminal-report": "^3.3.3"
   },
+  "devDependencies": {
+    "@4tw/cypress-drag-drop": "^1.6.0",
+    "eslint": "^8.1.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.25.2"
+  },
   "scripts": {
-    "test": "cypress open"
+    "test": "cypress open",
+    "lint": "eslint ./",
+    "lint:fix": "eslint --fix ./"
   },
   "repository": {
     "type": "git",
