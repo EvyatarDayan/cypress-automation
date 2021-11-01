@@ -6,7 +6,7 @@ describe('Edit poll', () => {
 
     it('Login', () => {
         cy
-        .goto(res.automationUrls.login)
+        .goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`)
         .login(res.automationUsers.user1.email, res.automationUsers.user1.password)
     })
 

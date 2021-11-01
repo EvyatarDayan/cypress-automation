@@ -15,7 +15,7 @@ for p in ${QUERY_STRING//&/ };do kvp=( ${p/=/ } ); k=`echo ${kvp[0]} | awk '{ pr
 [ -z "$CLASS" ] && die "Missing class"
 
 cd /app
-#git checkout -f master
+# git checkout -f master
 git pull
 
 CONF=`cat .env-config/${CLUSTER}.${NAMESPACE}.conf`
@@ -24,11 +24,14 @@ tmpConfFile="${TS}${CLUSTER}${NAMESPACE}${SERVICE}${CLASS}"
 cat /dev/null > $tmpConfFile
 for key in `echo -n $CONF | jq -r 'keys[]' | grep _PUBLIC_URL` ; do
   value=`echo -n $CONF | jq -r ".${key}"`
-  echo "${key}=\"CYPRESS_${value}\"" >> $tmpConfFile
+  echo "export CYPRESS_${key}=\"${value}\"" >> $tmpConfFile
 done
 
 . $tmpConfFile
 rm -f tmpConfFile
 
-# env | grep _PUBLIC_URL
-CYPRESS_TEST_SERVICE=$SERVICE CYPRESS_TEST_CLASS=$CLASS node cypress-run-tests.js $SERVICE $CLASS
+export CYPRESS_TEST_SERVICE=$SERVICE 
+export CYPRESS_TEST_CLASS=$CLASS 
+# echo "<br /><br />"
+# env | grep CYPRESS | sort | sed ':a;N;$!ba;s#\n#<br />#g;s#^<br />##g'
+node cypress-run-tests.js $SERVICE $CLASS
