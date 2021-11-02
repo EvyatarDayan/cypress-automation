@@ -1,6 +1,16 @@
+import { fetchAllLayouts, findLayoutId } from '../../../support/utils';
+
 const res = require('../../../support/res');
 
+let storyLayoutId;
+let pollLayoutId;
+
 describe('Performance POC', async () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    storyLayoutId = findLayoutId('story', layouts);
+    pollLayoutId = findLayoutId('multi poll two', layouts);
+  });
   it('Check registration page', () => {
     cy
       .checkPerformance(res.automationUrls.register, 5000)
@@ -22,14 +32,14 @@ describe('Performance POC', async () => {
 
   it('Check Create new story', () => {
     cy
-      .goto(res.createNewEngine.story)
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${storyLayoutId}`)
       .checkPerformance('https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def71', 5000)
       .waitFor(3000);
   });
 
   it('Check Create new poll', () => {
     cy
-      .goto(res.createNewEngine.poll)
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${pollLayoutId}`)
       .checkPerformance('https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def6a', 5000)
       .waitFor(3000);
   });

@@ -1,15 +1,25 @@
+import { fetchAllLayouts, findLayoutId } from '../../../../../support/utils';
+
 const cyTools = require('randomstring');
 const res = require('../../../../../support/res');
 
+let storyLayoutId;
+
 const randomNumber = cyTools.generate({ length: 5, charset: '1234567890' });
 
-describe('Stage 1 - create new story', () => {
-  it('step 1 - Login', () => {
+describe('Stage 1 - create new story', async () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    storyLayoutId = findLayoutId('story', layouts);
+  });
+
+  it('step 1 - Login', async () => {
     cy
+      .log(storyLayoutId)
       .goto(res.automationUrls.login)
       .login(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
     // Open story editor in the same tab (replace click on create->story due to cypress multiple tabs limitation)
-      .goto(res.createNewEngine.story);
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${storyLayoutId}`);
     // Keep the cookie between the tests
     Cypress.Cookies.preserveOnce('automationApesterSession');
   });

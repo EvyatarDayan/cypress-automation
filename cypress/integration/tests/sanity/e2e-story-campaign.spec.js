@@ -1,3 +1,5 @@
+import { fetchAllLayouts, findLayoutId } from '../../../support/utils';
+
 const cyTools = require('randomstring');
 const res = require('../../../support/res');
 const templates = require('../../../../templates/pageTemplate');
@@ -6,13 +8,20 @@ const randomNumber = cyTools.generate({ length: 5, charset: '1234567890' });
 const GPTTag = '/57806026/100_fill_320x50';
 const testPageName = 'testPage.html';
 
+let storyLayoutId;
+
 describe('Stage 1 - create new story', () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    storyLayoutId = findLayoutId('story', layouts);
+  });
+
   it('step 1 - Login', () => {
     cy
       .goto(res.automationUrls.login)
       .login(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
     // Open story editor in the same tab (replace click on create->story due to cypress multiple tabs limitation)
-      .goto(res.createNewEngine.story);
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${storyLayoutId}`);
     // Keep the cookie between the tests
     Cypress.Cookies.preserveOnce('automationApesterSession');
   });

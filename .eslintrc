@@ -1,6 +1,6 @@
 {
-  "extends": "airbnb-base",
-  "plugins": ["import", "cypress"],
+  "extends": ["airbnb-base", "plugin:chai-friendly/recommended"],
+  "plugins": ["import", "cypress", "chai-friendly"],
   "env": {
     "jest": true,
     "es6": true,

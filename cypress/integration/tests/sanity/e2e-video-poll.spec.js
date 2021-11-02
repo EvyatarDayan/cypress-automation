@@ -1,21 +1,29 @@
-const res = require('../../../support/res');
+import { fetchAllLayouts, findLayoutId } from '../../../support/utils';
+
+const cyTools = require('randomstring');
 const dayjs = require('dayjs');
+const res = require('../../../support/res');
 
 const currentDate = dayjs().format('HH:mm - MMM DD, YYYY');
-const cyTools = require('randomstring');
 const templates = require('../../../../templates/pageTemplate');
 
 const randomNumber = cyTools.generate({ length: 5, charset: '1234567890' });
 const testPageName = 'testPage.html';
 const aniviewChannelId = '5fad4ac42cd6d91dcb6e50e9';
 const aniviewPlayerId = '5faf2a6e1b1ab26edc3f9173';
+let videoPollLayoutId;
 
 describe('Create video poll', () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    videoPollLayoutId = findLayoutId('video-poll', layouts);
+  });
+
   it('Login', () => {
     cy
       .goto(res.automationUrls.login)
       .login(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
-      .goto(res.createNewEngine.videoPoll)
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${videoPollLayoutId}`)
       .preserveCookie('automationApesterSession'); // Keep the cookies
   });
 

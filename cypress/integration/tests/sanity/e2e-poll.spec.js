@@ -1,11 +1,20 @@
+import { fetchAllLayouts, findLayoutId } from '../../../support/utils';
+
 const res = require('../../../support/res');
 
+let pollLayoutId;
+
 describe('Create poll e2e', () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    pollLayoutId = findLayoutId('multi poll two', layouts);
+  });
+
   it('Login', () => {
     cy
       .goto(res.automationUrls.login)
       .login(res.automationUsers.user1.email, res.automationUsers.user1.password)
-      .goto(res.createNewEngine.poll)
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${pollLayoutId}`)
       .preserveCookie('automationApesterSession'); // Keep the cookies
   });
 

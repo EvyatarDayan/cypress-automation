@@ -23,18 +23,6 @@ module.exports = {
     register: 'https://portal.stg.apester.dev/auth/signup?',
   },
 
-  createNewEngine: {
-    poll: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def6a',
-    countdown: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def65',
-    videoPoll: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def73',
-    story: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def71',
-    gallery: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def67',
-    quiz: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def6c',
-    personality: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def6e',
-    videoQuiz: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def74',
-    videoPersonality: 'https://app.automation.apester.dev/editor/new?layoutId=60e7098e5d57eb00181def72'
-  },
-
   // Users
   //----------------------------------------------------------------------------------------------------------------
   prodUsers: {

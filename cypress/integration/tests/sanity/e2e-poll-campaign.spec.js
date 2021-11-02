@@ -1,3 +1,5 @@
+import { fetchAllLayouts, findLayoutId } from '../../../support/utils';
+
 const cyTools = require('randomstring');
 const res = require('../../../support/res');
 const templates = require('../../../../templates/pageTemplate');
@@ -5,14 +7,20 @@ const templates = require('../../../../templates/pageTemplate');
 const randomNumber = cyTools.generate({ length: 5, charset: '1234567890' });
 const GPTTag = '/57806026/100_fill_320x50';
 const testPageName = 'testPage.html';
+let pollLayoutId;
 
 describe('Stage 1 - Create new poll', () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    pollLayoutId = findLayoutId('multi poll two', layouts);
+  });
+
   it('step 1 - Login', () => {
     cy
       .goto(res.automationUrls.login)
       .login(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
     // Open poll editor in the same tab (replace click on create->poll due to cypress multiple tabs limitation)
-      .goto(res.createNewEngine.poll);
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${pollLayoutId}`);
     // Keep the cookie between the tests
     Cypress.Cookies.preserveOnce('automationApesterSession');
   });

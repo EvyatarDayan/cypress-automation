@@ -1,11 +1,20 @@
+import { fetchAllLayouts, findLayoutId } from '../../../support/utils';
+
 const res = require('../../../support/res');
 
+let countdownLayoutId;
+
 describe('Edit video quiz', () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    countdownLayoutId = findLayoutId('contest-poll', layouts);
+  });
+
   it('Login', () => {
     cy
       .goto(res.automationUrls.login)
       .login(res.automationUsers.user1.email, res.automationUsers.user1.password)
-      .goto(res.createNewEngine.countdown);
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${countdownLayoutId}`);
   });
 
   it('Add video', () => {
