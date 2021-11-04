@@ -8,5 +8,11 @@
   "video": false,
   "chromeWebSecurity": false,
   "reporter": "cypress-mochawesome-reporter",
+  "reporterOptions": {
+    "reportDir": "/usr/share/nginx/reports",
+    "html": true,
+    
+    "toConsole": true
+  },
   "projectId": "9zx4si"
 }

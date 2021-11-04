@@ -1,7 +1,7 @@
 {
   "cluster": "gke-dev",
   "namespace": "automation-main",
-  "release": "dev-galdil-feat_no-jira_add-config-files-6abafca83bb5006f391e30b8d5b3dd4867c04fb3",
+  "release": "d3224e23dfe120917d8012619cae100fe3f0410f",
   "autoDeployTags": "true",
   "envClass": "dev"
 }
