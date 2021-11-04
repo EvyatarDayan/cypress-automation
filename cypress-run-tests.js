@@ -16,25 +16,17 @@ if (!testMapping[service]) {
 }
 
 cypress.run({
-  spec: testsToRun,
-  // browser: 'chrome'  ,
-  headless: true,
-
+  spec: './cypress/integration/tests/CICD/*.spec.js',
+  // browser: 'chrome',
   config: {
     baseUrl: 'https://portal.apester.com',
-    video: false,
+    video: true,
   },
   env: {
     login_url: '/auth/login',
   },
-  exit: true
-}).then((results) => {
-  if (results.totalFailed > 0) {
-    process.exit(2);
-  }
-  process.exit(0);
 })
+
   .catch((err) => {
     console.error(err);
-    process.exit(1);
   });
