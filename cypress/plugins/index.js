@@ -12,6 +12,11 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+// plugins file
+module.exports = (on, config) => {
+  // accept a configFile value or use local by default
+};
+
 /**
  * @type {Cypress.PluginConfig}
  */
@@ -31,4 +36,46 @@ module.exports = (on, config) => {
 
 module.exports = (on) => {
   require('cypress-terminal-report/src/installLogsPrinter')(on);
+};
+
+let NOSCRevenue;
+let withSCRevenue;
+let alternativeA;
+let alternativeB;
+let withSCRevenueAfterCountAndRound;
+let NOSCRevenueAfterCountAndRound;
+let diffAsPercentageAfterRound;
+
+module.exports = (on, config) => {
+  on('task', {
+    setNOSCRevenue: (val) => (NOSCRevenue = val),
+    getNOSCRevenue: () => NOSCRevenue,
+
+    setWithSCRevenue: (val) => (withSCRevenue = val),
+    getWithSCRevenue: () => withSCRevenue,
+
+    setAlternativeA: (val) => (alternativeA = val),
+    getAlternativeA: () => alternativeA,
+
+    setAlternativeB: (val) => (alternativeB = val),
+    getAlternativeB: () => alternativeB,
+
+    setwithSCRevenueAfterCountAndRound: (val) => (withSCRevenueAfterCountAndRound = val),
+    getwithSCRevenueAfterCountAndRound: () => withSCRevenueAfterCountAndRound,
+
+    setNOSCRevenueAfterCountAndRound: (val) => (NOSCRevenueAfterCountAndRound = val),
+    getNOSCRevenueAfterCountAndRound: () => NOSCRevenueAfterCountAndRound,
+
+    setDiffAsPercentageAfterRound: (val) => (diffAsPercentageAfterRound = val),
+    getDiffAsPercentageAfterRound: () => diffAsPercentageAfterRound,
+
+    getAllSavedValues: () => ({ NOSCRevenue,
+      withSCRevenue,
+      alternativeA,
+      alternativeB,
+      withSCRevenueAfterCountAndRound,
+      NOSCRevenueAfterCountAndRound,
+      diffAsPercentageAfterRound
+    })
+  });
 };

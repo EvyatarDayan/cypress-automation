@@ -1,16 +1,18 @@
-// e2e-run-tests.js
+// cypress-run-users-sanity.js
+
 const cypress = require('cypress');
 
 cypress.run({
-  spec: './cypress/integration/tests/CICD/*.spec.js',
-  // browser: 'chrome',
+
+  spec: './cypress/integration/tests/playground/CICD/*.spec.js',
+  reporter: 'junit',
+  browser: 'chrome',
+  // headed: true,
+
   config: {
-    baseUrl: 'https://portal.apester.com',
     video: true,
   },
-  env: {
-    login_url: '/auth/login',
-  },
+
 })
 
   .catch((err) => {

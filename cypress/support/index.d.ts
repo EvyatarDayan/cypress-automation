@@ -21,6 +21,7 @@ declare namespace Cypress {
         doubleClickOnXpath(a: string): Chainable
         back(): Chainable
         waitFor(a: number): Chainable
+        waitForVisibleElement(a: string, b: number): Chainable
         refresh(): Chainable
         pauseHere(): Chainable
         checkCheckbox(a: string): Chainable
@@ -39,7 +40,7 @@ declare namespace Cypress {
         dragAndDropByPixels(a: string, b: number, c: number)
         dragAndDropByXpath(a: string, b: string)
         dragAndDropByPixelsByXpath(a: string, b: number, c: number)
-        login(a: string, b: string): Chainable
+        loginToPortal(a: string, b: string): Chainable
         preserveCookie(a: string): Chainable
 
         // events

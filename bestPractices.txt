@@ -46,7 +46,7 @@
  npx http-server -p 8080
  ----------------------------------------------------------------------------------------------
  Run tests in the docker command line
- node e2e-run-tests.js                             -- Will run all tests under the folder specified in the e2e-run-tests.js file
+ node e2e-cypress-run-editor-sanity.js                             -- Will run all tests under the folder specified in the e2e-cypress-run-editor-sanity.js file
 
 
 
@@ -62,3 +62,34 @@
  -------------------------------------------------------------------------------------------------------------------------------
  Problem: 401 Authorization issues
  Solution: either use Cypress.Cookies.preserveOnce('automationApesterSession') or use separate 'describe' if navigating to different URL.
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+Create new engine mapping:
+-------------------------------
+count down - 'contest-poll'
+poll - 'multi-poll-two'
+video poll - 'video-poll'
+story - 'story'
+gallery - 'gallery'
+custom - 'custom'
+quiz - 'multi-trivia-two'
+personality - 'personality-quiz-two'
+video quiz - 'video-trivia'
+video personality - 'video-personality'
+
+e.g.
+-----
+describe('Edit video quiz', () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    countdownLayoutId = findLayoutId('contest-poll', layouts);
+  });
+
+  it('Login', () => {
+    cy
+      .loginToPortal(res.automationUsers.user1.email, res.automationUsers.user1.password)
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${countdownLayoutId}`);
+  });
+});
+-------------------------------------------------------------------------------------------------------------------------------

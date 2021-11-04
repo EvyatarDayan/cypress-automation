@@ -59,7 +59,8 @@ jobs:
       run: infra/deploy/deploy.sh
       env:
         COMMIT_MESSAGE:    ${{ github.event.head_commit.message }}
-        SLACK_URL:         ${{ secrets.SLACK_DEPLOYMENT_URL }}
+        SLACK_PROD_URL:    ${{ secrets.SLACK_DEPLOYMENT_URL }}
+        SLACK_DEV_URL:     ${{ secrets.SLACK_DEPLOYMENT_DEV_URL }}
         ACTOR:             ${{ github.actor }}
         OPENVPN_DEV_CONF:  ${{ secrets.OPENVPN_DEV_CONF }}
 

@@ -1,13 +1,12 @@
 const res = require('../../../support/res');
 
-const searchEngines = 'Automation engine:';
-const numberOfEngines = 30;
+// const searchEngines = 'Automation engine:';
+// const numberOfEngines = 30;
 
 describe('Stage 1 - delete engines', () => {
   it('Step 1 - Login as admin', () => {
     cy
-      .goto(res.automationUrls.login)
-      .login(res.automationUsers.admin1.email, res.automationUsers.admin1.password);
+      .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password);
   });
 
   // it('Step 2 - Archive all engines', () => {

@@ -25,7 +25,7 @@ describe('Performance POC', async () => {
 
   it('Check default page (Media)', () => {
     cy
-      .login(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
+      .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
       .checkPerformance('https://app.automation.apester.dev/dashboard?tab=media', 5000)
       .waitFor(3000);
   });

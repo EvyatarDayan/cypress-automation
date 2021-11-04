@@ -1,4 +1,4 @@
-const res = require('../../../support/res');
+// const res = require('../../../support/res');
 
 describe('Edit gallery', () => {
   it('measures page load on the home page', () => {

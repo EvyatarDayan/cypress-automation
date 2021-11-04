@@ -123,6 +123,11 @@ Cypress.Commands.add('waitFor', (time) => {
   cy.wait(time);
 });
 
+// -- waitForVisibleElement --
+Cypress.Commands.add('waitForVisibleElement', (selector, timeout) => {
+  cy.get(selector, { timeout }).should('be.visible');
+});
+
 // -- pauseHere --
 Cypress.Commands.add('pauseHere', () => {
   cy.pause();
@@ -175,8 +180,9 @@ Cypress.Commands.add('openInCurrentTab', (selector) => { // element in order to 
   cy.get(selector).invoke('removeAttr', 'target').click(); // (Cypress not supporting multiple tabs)
 });
 
-// -- login --
-Cypress.Commands.add('login', (email, password) => {
+// -- loginToPortal --
+Cypress.Commands.add('loginToPortal', (email, password) => {
+  cy.goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`);
   cy.typeValue('[style="grid-row:1"] > .InputField_input__1JpI-', email);
   cy.typeValue('[style="grid-row:3"] > .InputField_input__1JpI-', password);
   cy.clickOn('.apeButton');
@@ -280,8 +286,7 @@ Cypress.Commands.add('eventMetadataContains', (eventName, metadataName, metadata
 
 // -- switchToIframe --
 Cypress.Commands.add('switchToIframe', (iframe) => // This will switch to iframe, use only native cy commands within that function
-  cy
-    .get(iframe)
+  cy.get(iframe)
     .its('0.contentDocument.body')
     .should('be.visible')
     .then(cy.wrap));
