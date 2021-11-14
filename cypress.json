@@ -7,7 +7,7 @@
   "requestTimeout":10000,
   "video": false,
   "chromeWebSecurity": false,
-  "reporter": "cypress-mochawesome-reporter",
+  "reporter": "mochawesome",
   "reporterOptions": {
     "reportDir": "/usr/share/nginx/reports",
     "html": true,

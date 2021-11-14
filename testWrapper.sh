@@ -15,8 +15,8 @@ for p in ${QUERY_STRING//&/ };do kvp=( ${p/=/ } ); k=`echo ${kvp[0]} | awk '{ pr
 [ -z "$CLASS" ] && die "Missing class"
 
 cd /app
-# git checkout -f master
-git pull
+git checkout -f master
+git pull > /dev/null
 
 CONF=`cat .env-config/${CLUSTER}.${NAMESPACE}.conf`
 TS=`date "+%Y%m%d%H%M%S%N"`

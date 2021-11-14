@@ -1,7 +1,7 @@
 const sanityTests = [];
 
 module.exports = {
-
+  test: ['./cypress/integration/tests/playground/CICD/**/*.spec.js'],
   editor: ['./cypress/integration/tests/sanity/editor/**/*.spec.js'].concat(sanityTests), // dashboard + editor.
   portal: ['./cypress/integration/tests/sanity/portal/**/*.spec.js'].concat(sanityTests), // login/onboarding/ use case landing page.
   payments: ['./cypress/integration/tests/sanity/payments/**/*.spec.js'].concat(sanityTests), // plans + payments.

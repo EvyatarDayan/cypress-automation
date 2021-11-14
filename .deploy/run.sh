@@ -1,5 +1,5 @@
 #!/bin/bash
-su -s /bin/bash -c "gcsfuse $CYPRESS_AUTOMATION_BUCKET /usr/share/nginx/reports" www-data
+/usr/bin/gcsfuse -o allow_other  --file-mode=666 --dir-mode=777 $CYPRESS_AUTOMATION_BUCKET /usr/share/nginx/reports
 cat /secret-mounts/gh-key/GH_KEY > ~/.ssh/id_rsa
 echo "" >> ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
