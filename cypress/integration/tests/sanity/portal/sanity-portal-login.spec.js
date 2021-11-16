@@ -1,8 +1,8 @@
-const res = require('../../../../../support/res');
+const res = require('../../../../support/res');
 
 describe('Login', () => {
   it('Navigate to URL', () => {
-    cy.goto(res.automationUrls.login);
+    cy.goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`);
   });
   /// this is new
   it('Step 1 - Forgot password - none existing email', () => {
@@ -18,7 +18,7 @@ describe('Login', () => {
       .clickOn('.apeButton')
       .textContains('.error', 'Invalid Data.') // Check error message
       .clickOn('.link') // Click on "return to log in"
-      .urlContains(res.automationUrls.login); // Validate back to login page
+      .urlContains(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`); // Validate back to login page
   });
 
   it('Step 2 - Forgot password - existing email', () => {

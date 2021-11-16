@@ -26,7 +26,7 @@ describe('Create video poll', () => {
       .preserveCookie('automationApesterSession'); // Keep the cookies
   });
 
-  it('Add the engine', () => {
+  it('Add the unit', () => {
     cy
       .typeValue('.content > .insert-url > .ng-pristine', 'https://www.youtube.com/watch?v=q1vN28g7OhI&ab_channel=GadiEidelheit') // Add the video url
       .clickOn('.enter-url') // click on add button
@@ -90,7 +90,7 @@ describe('Create video poll', () => {
 describe('Stage 2 - create the campaign', () => {
   it('step 1 - Login', () => {
     cy
-    .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password);
+      .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password);
     // Open the campaign editor
     Cypress.Cookies.preserveOnce('automationApesterSession');
     cy.goto('https://campaign.automation.apester.dev/#/video-campaign/new');

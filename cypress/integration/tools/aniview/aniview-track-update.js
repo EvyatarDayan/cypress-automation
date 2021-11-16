@@ -9,7 +9,7 @@ const allInvalid = [];
 describe('Stage 1 - aniview update', () => {
   it('Step 1 - Login and update all', () => {
     cy
-      .goto(res.prodUrls.aniview)
+      .goto(`${Cypress.env('ANIVIEW_PUBLIC_URL')}/login`)
       .typeValue('#id', res.prodUsers.aniview.email)
       .typeValue('#password', res.prodUsers.aniview.password)
       .clickOn('button')

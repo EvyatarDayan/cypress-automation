@@ -12,7 +12,7 @@ const percentageDIffAllowed = 20;
 describe('Aniview kicker optimization', () => {
   it('Step 1 - Aniview - Login', () => {
     cy
-      .goto(res.prodUrls.aniview)
+      .goto('https://manage.aniview.com')
       .waitForVisibleElement('#id', 20000)
       .typeValue('#id', res.prodUsers.aniview.email)
       .typeValue('#password', res.prodUsers.aniview.password)
@@ -124,7 +124,7 @@ describe('Aniview kicker optimization', () => {
       const NOSCRevenueAfterCountAndRound = Math.round(NOSCRevenueAfterCount);
       cy.log(`=myLog= NOSCRevenue after count and round: ${NOSCRevenueAfterCountAndRound}`);
       // Push results to "task" container
-      cy.task('setNOSCRevenueAfterCountAndRound', 230); // NOSCRevenueAfterCountAndRound
+      cy.task('setNOSCRevenueAfterCountAndRound', NOSCRevenueAfterCountAndRound); // NOSCRevenueAfterCountAndRound
     });
 
     // withSCRevenue
@@ -133,7 +133,7 @@ describe('Aniview kicker optimization', () => {
       const withSCRevenueAfterCountAndRound = Math.round(withSCRevenueAfterCount);
       cy.log(`=myLog= withSCRevenue after count and round: ${withSCRevenueAfterCountAndRound}`);
       // Push results to "task" container
-      cy.task('setwithSCRevenueAfterCountAndRound', 21); // withSCRevenueAfterCountAndRound
+      cy.task('setwithSCRevenueAfterCountAndRound', withSCRevenueAfterCountAndRound); // withSCRevenueAfterCountAndRound
     });
   });
 

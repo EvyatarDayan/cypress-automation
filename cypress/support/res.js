@@ -12,7 +12,7 @@ module.exports = {
 
   automationUrls: {
     login: 'https://portal.automation.apester.dev/auth/login',
-    register: 'https://portal.automation.apester.dev/auth/signup?',
+    register: 'https://portal.automation.apester.dev/auth/signup',
     privacyPolicy: 'https://apester.com/privacy-policy/',
     termsOfService: 'https://apester.com/terms-of-service/',
     dynamicTestPages: 'https://dynamictestpages.dev-cluster.apester.dev/index.html'
@@ -20,7 +20,7 @@ module.exports = {
 
   stagingUrls: {
     login: 'https://portal.stg.apester.dev/auth/login',
-    register: 'https://portal.stg.apester.dev/auth/signup?',
+    register: 'https://portal.stg.apester.dev/auth/signup',
   },
 
   // Users

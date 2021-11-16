@@ -16,14 +16,14 @@ describe('Create video poll', () => {
     cy
       .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
       .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${videoPollLayoutId}`)
-      .preserveCookie('automationApesterSession'); // Keep the cookies
+      .preserveCookie('automationApesterSession');
   });
 
-  it('Add the engine', () => {
+  it('Create the unit', () => {
     cy
       .typeValue('.content > .insert-url > .ng-pristine', 'https://www.youtube.com/watch?v=q1vN28g7OhI&ab_channel=GadiEidelheit') // Add the video url
       .clickOn('.enter-url') // click on add button
-      .typeValue('.main-title > .ape-text-editor-wrapper > .ta-root', `Automation - Video poll: ${randomNumber}`).waitFor(1000) // Add title to cover slide
+      .typeValue('.main-title > .ape-text-editor-wrapper > .ta-root', `Video poll cover: ${randomNumber}`).waitFor(1000) // Add title to cover slide
       .scrollToPosition(0, 300)
       .clickOn('.control__btn > .ic')
       .waitFor(3000)
@@ -46,25 +46,40 @@ describe('Create video poll', () => {
       .clickOn('.feedback-feeder__nav > .ape-dropdown > .ape-dropdown__label-wrapper > .ape-dropdown--label') // Click on dropdown list
       .clickOn(':nth-child(4) > .ape-dropdown__list-link') // Select 'wrong answer' option
       .clickOn(':nth-child(3) > .ape-image > media > .media-image') // Select the answer image
-      .clickOn('.bottom-toolbar--feedback > .icon-check-mark') // Confirm the answer image
+      .clickOn('.bottom-toolbar--feedback > .icon-check-mark'); // Confirm the answer image
 
-      .clickOnXpath('/html/body/section/div/section/section/div/div[2]/div[1]/div[3]/h2'); // click on the result slide
+    // click on the result slide
+    cy.scrollToPosition(0, 1000);
     cy.get('.ape-summary-template__list > :nth-child(1)').click('bottomRight')
       .clearValue('.ape-summary-slide__content-title > .ng-pristine').waitFor(1000)
       .typeValue('.ape-summary-slide__content-title > .ng-valid', 'Feedback 1')
       .waitFor(1000);
 
-    cy.get('.ape-summary-template__list > :nth-child(2)', { force: true }).click('bottomRight')
+    cy.get('.ape-summary-template__list > :nth-child(2)', { force: true }).click('bottomLeft')
       .clearValue('#result1 > .ape-summary-slide__canvas > [ng-if="shouldOpenCanvas"] > .vertical-align-helper > .vertical-align > .ape-summary-slide__content > .columns > :nth-child(2) > .ape-summary-slide__content-text > .ape-summary-slide__content-title > .ng-pristine\n').waitFor(1000)
       .typeValue('#result1 > .ape-summary-slide__canvas > [ng-if="shouldOpenCanvas"] > .vertical-align-helper > .vertical-align > .ape-summary-slide__content > .columns > :nth-child(2) > .ape-summary-slide__content-text > .ape-summary-slide__content-title > .ng-valid\n', 'Feedback 2');
 
-    cy.get('.ape-summary-template__list > :nth-child(3)', { force: true }).click('bottomRight')
+    cy.get('.ape-summary-template__list > :nth-child(3)', { force: true }).click('bottomLeft')
       .clearValue('.ape-summary-slide__content-title > .ng-pristine').waitFor(1000)
       .typeValue('#result2 > .ape-summary-slide__canvas > [ng-if="shouldOpenCanvas"] > .vertical-align-helper > .vertical-align > .ape-summary-slide__content > .columns > :nth-child(2) > .ape-summary-slide__content-text > .ape-summary-slide__content-title > .ng-valid', 'Feedback 3')
       .clickOn('.ape-summary-template__list > :nth-child(1)') // Click on the first feedback option
 
       .scrollToPosition(0, 5000)
       .clickOn('.publish-button')
-      .waitFor(3000);
+      .waitFor(1000);
+  });
+
+  it('Delete the unit', () => {
+    cy
+      .goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`)
+      .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
+      .typeValue('.search-filter > .ng-pristine', randomNumber)
+      .clickOn('.circle-search-btn > .ic')
+      .waitFor(500)
+      .hoverElement('.action-items')
+      .waitFor(500)
+      .clickOn('.icon-archive')
+      .waitFor(500)
+      .clickOn('.warning-popup__container--accept-btn');
   });
 });

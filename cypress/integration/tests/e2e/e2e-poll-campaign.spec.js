@@ -71,8 +71,7 @@ describe('Stage 1 - Create new poll', () => {
 describe('Stage 2 - Create the campaign', () => {
   it('Step 1 - Login', () => {
     cy
-      .goto(res.automationUrls.login)
-      .login(res.automationUsers.admin1.email, res.automationUsers.admin1.password);
+      .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password);
     // Open the campaign editor
     Cypress.Cookies.preserveOnce('automationApesterSession');
     cy.goto('https://campaign.automation.apester.dev/#/companion-campaign/new');

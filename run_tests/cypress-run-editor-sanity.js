@@ -7,7 +7,7 @@ cypress.run({
   spec: './cypress/integration/tests/sanity/editor/**/*.spec.js',
   reporter: 'junit',
   browser: 'chrome',
-  // headed: true,
+  headed: true,
 
   config: {
     video: true,

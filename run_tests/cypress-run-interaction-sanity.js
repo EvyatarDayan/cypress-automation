@@ -4,7 +4,7 @@ const cypress = require('cypress');
 
 cypress.run({
 
-  spec: './cypress/integration/tests/sanity/portal/media/sanity-portal-interactions.spec.js',
+  spec: './cypress/integration/tests/sanity/portal/media/sanity-dashboard-interactions.spec.js',
   reporter: 'junit',
   browser: 'chrome',
   // headed: true,

@@ -1,8 +1,8 @@
-const res = require('../../../../../support/res');
+const res = require('../../../../support/res');
 
 describe('Register', () => {
   it('Navigate to URL', () => {
-    cy.goto(res.automationUrls.register);
+    cy.goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/signup`);
   });
 
   it('Step 1 - email validation', () => {
