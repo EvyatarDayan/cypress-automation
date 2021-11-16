@@ -4,7 +4,7 @@ const cypress = require('cypress');
 const marge = require('mochawesome-report-generator');
 const { merge } = require('mochawesome-merge');
 
-const [service, cla] = process.argv.slice(-2);
+const [service] = process.argv.slice(-2);
 const testMapping = require('./service-test-mapping');
 
 if (!service) {
@@ -16,7 +16,7 @@ if (!testMapping[service]) {
   console.error('No tests for provided service');
   process.exit(1);
 }
-const dateString = (new Date()).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).replace(',', '').replace(/ /g, '-');
+const dateString = (new Date()).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).replace(',', '').replace(/[ |/]/g, '-');
 const randomTestNum = Math.round(Math.random() * 100000);
 const currentDirName = `${dateString}-${randomTestNum}`;
 const testDirName = `/usr/share/nginx/reports/${currentDirName}/`;

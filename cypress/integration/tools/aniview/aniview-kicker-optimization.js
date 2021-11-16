@@ -1,6 +1,8 @@
 const dayjs = require('dayjs');
 const res = require('../../../support/res');
 
+const reportPath = Cypress.env('reportPath');
+
 const reportName = 'Kicker Ver. 2';
 const currentDate = dayjs().format('DD/MM/YYYY');
 const currentDateForReport = dayjs().format('DD/MM/YYYY HH:mm');
@@ -168,7 +170,7 @@ describe('Aniview kicker optimization', () => {
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is lower than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
         cy.log(latestResults);
-        cy.writeFile('cypress/integration/tools/aniview/resultsHistory.txt', `\n${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
 
       // -------------------------------------------- Case 2 -----------------------------------------------------------
       // When "NOSCRevenue" is higher than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
@@ -185,7 +187,7 @@ describe('Aniview kicker optimization', () => {
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is higher than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
         cy.log(`=myLog= ${latestResults}`);
-        cy.writeFile('cypress/integration/tools/aniview/resultsHistory.txt', `\n${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
         // eslint-disable-next-line brace-style
       }
 
@@ -205,8 +207,8 @@ describe('Aniview kicker optimization', () => {
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is pretty equal to "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
         const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${vals.diffAsPercentageAfterRound}%`;
         cy.log(latestResults);
-        cy.writeFile('cypress/integration/tools/aniview/resultsHistory.txt', `\n${latestResults}`, { flag: 'a+' });
-        cy.writeFile('cypress/integration/tools/aniview/resultsHistory.txt', `\n${PercentageDiffForLog}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
       }
     });
   });
