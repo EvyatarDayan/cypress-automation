@@ -1,11 +1,16 @@
 const dayjs = require('dayjs');
 // const res = require('../../../support/res');
 
-const reportPath = Cypress.env('reportPath');
+const reportPath = Cypress.env('REPORT_PATH');
+const aniviewEmail = Cypress.env('ANIVIEW_EMAIL');
+const aniviewPass = Cypress.env('ANIVIEW_PASSWORD');
+
+const apesterAdminEmail = Cypress.env('APESTER_ADMIN_EMAIL');
+const apesterAdminPassword = Cypress.env('APESTER_ADMIN_PASSWORD');
 
 const reportName = 'Kicker Ver. 2';
-const currentDate = dayjs().format('DD/MM/YYYY');
-const currentDateForReport = dayjs().format('DD/MM/YYYY HH:mm');
+const currentDate = (new Date()).toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric', timeZone: 'Asia/Jerusalem' });
+const currentDateForReport = (new Date()).toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Jerusalem' }).replace(',', '');
 const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering time difference)
 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
@@ -21,8 +26,8 @@ describe('Aniview kicker optimization', () => {
     cy
       .goto('https://manage.aniview.com/login?redirectTo=%2F&accessRedirect=true')
       .waitForVisibleElement('#id', 20000)
-      .typeValue('#id', `${Cypress.env('ANIVIEW_EMAIL')}`)
-      .typeValue('#password', `${Cypress.env('ANIVIEW_PASSWORD')}`)
+      .typeValue('#id', aniviewEmail)
+      .typeValue('#password', aniviewPass)
       .clickOn('button');
     Cypress.Cookies.preserveOnce('token');
   });
@@ -80,7 +85,7 @@ describe('Aniview kicker optimization', () => {
 
   it('step 4 - Apester - Login', () => {
     cy
-      .loginToPortal(`${Cypress.env('CYPRESS_ADMIN_EMAIL')}`, `${Cypress.env('CYPRESS_ADMIN_PASSWORD')}`)
+      .loginToPortal(apesterAdminEmail, apesterAdminPassword)
       .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
   });
 

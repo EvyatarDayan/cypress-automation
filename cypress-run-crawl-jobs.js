@@ -22,10 +22,10 @@ if (!jobsMapping[jobName]) {
   process.exit(1);
 }
 
-const dateString = (new Date()).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).replace(',', '').replace(/[ |/]/g, '-');
+const dateString = (new Date()).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Jerusalem' }).replace(',', '').replace(/[ |/]/g, '-');
 const reportDir = `${jobName}__${dateString}`;
 
-const dateStringWithHour = (new Date()).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric' }).replace(',', '').replace(/[ |/]/g, '-');
+const dateStringWithHour = (new Date()).toLocaleDateString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', timeZone: 'Asia/Jerusalem' }).replace(',', '').replace(/[ |/]/g, '-');
 const randomJobNum = Math.round(Math.random() * 100000);
 
 const reportName = `${jobName}__${dateStringWithHour}__${randomJobNum}.txt`;
@@ -37,7 +37,7 @@ cypress.run({
   quiet: true,
   config: {
     env: {
-      reportPath
+      REPORT_PATH: reportPath
     },
     video: false,
     viewportWidth: 1400,
@@ -59,19 +59,24 @@ cypress.run({
   },
 
 }).then(async () => {
-  const file = await open(reportPath);
-  const result = await file.readFile('utf8');
-  // report to slack / email / whatever
-  await reporter.report(result);
-  await file.close();
+  try {
+    const file = await open(reportPath);
+    const result = await file.readFile('utf8');
+    // report to slack / email / whatever
+    await reporter.report(result);
+    await file.close();
   // print test results and exit
   // with the number of failed tests as exit code
   // std output link to report + descriptive msg.
-  process.exit(result.totalFailed);
+  } catch (e) {
+    console.log('Failed to run task');
+    await reporter.report('Failed to run task');
+  }
+  process.exit(0);
 })
   .catch(async (err) => {
+    console.log('Failed to run task');
     console.log(err);
-    console.log('Failed to run tests');
-    await reporter.report('Failed to run tests');
+    await reporter.report('Failed to run task');
     process.exit(1);
   });
