@@ -1,7 +1,7 @@
 {
   "cluster": "gke-dev",
   "namespace": "automation-main",
-  "release": "dev-Nadavpe-fix_no-jira_upload-tests-024ce63efd9bc3020888957c6114a33c5b27b9ab",
+  "release": "v0.0.4",
   "autoDeployTags": "true",
   "envClass": "dev"
 }
