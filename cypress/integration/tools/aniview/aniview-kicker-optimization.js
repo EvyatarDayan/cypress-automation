@@ -1,5 +1,5 @@
 const dayjs = require('dayjs');
-const res = require('../../../support/res');
+// const res = require('../../../support/res');
 
 const reportPath = Cypress.env('reportPath');
 
@@ -10,14 +10,19 @@ const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering 
 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
 const percentageDIffAllowed = 20;
+let isProduction;
 
 describe('Aniview kicker optimization', () => {
+  before(() => {
+    isProduction = Cypress.env('NODE_ENV') === 'production';
+  });
+
   it('Step 1 - Aniview - Login', () => {
     cy
-      .goto('https://manage.aniview.com')
+      .goto('https://manage.aniview.com/login?redirectTo=%2F&accessRedirect=true')
       .waitForVisibleElement('#id', 20000)
-      .typeValue('#id', res.prodUsers.aniview.email)
-      .typeValue('#password', res.prodUsers.aniview.password)
+      .typeValue('#id', `${Cypress.env('ANIVIEW_EMAIL')}`)
+      .typeValue('#password', `${Cypress.env('ANIVIEW_PASSWORD')}`)
       .clickOn('button');
     Cypress.Cookies.preserveOnce('token');
   });
@@ -38,7 +43,7 @@ describe('Aniview kicker optimization', () => {
     // Wait for the results to display
       .waitForVisibleElement('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)', 30000);
 
-    // todo: aniview "NO DATA" report - kill the test with message
+    // todo: Need to kill the test in case "NO DATA" report return from kicker
 
     // cy.log('------- ANIVIEW RETURN NO DATA, Contact your admin -------')
 
@@ -75,30 +80,33 @@ describe('Aniview kicker optimization', () => {
 
   it('step 4 - Apester - Login', () => {
     cy
-      .loginToPortal(res.automationUsers.admin1.email, res.automationUsers.admin1.password)
-      .preserveCookie('automationApesterSession');
+      .loginToPortal(`${Cypress.env('CYPRESS_ADMIN_EMAIL')}`, `${Cypress.env('CYPRESS_ADMIN_PASSWORD')}`)
+      .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
   });
+
+  const campaignId = isProduction ? '614b2ebb9b24bb000c77652b' : '616d2fffbe0dfc002afbec0c';
 
   it('step 5 - Apester - Get the campaign percentage split via API', () => {
     // Get the response body (including the Alternative B percentage value)
     cy.intercept({
       method: 'GET',
-      url: 'campaigns/616d2fffbe0dfc002afbec0c',
-      hostname: 'campaign-api.automation.apester.dev',
+      url: `campaigns/${campaignId}`,
+      hostname: `${Cypress.env('CAMPAIGN_PUBLIC_URL').replace('https://', '')}`,
     }, (req) => {
-      req.alias = '616d2fffbe0dfc002afbec0c';
+      req.alias = campaignId;
       console.log(req.body);
     });
 
     // Open the campaign editor
-    cy.goto('https://campaign.automation.apester.dev/#/video-campaign/616d2fffbe0dfc002afbec0c');
+    cy.goto(`${Cypress.env('CAMPAIGN_MANAGER_PUBLIC_URL')}/#/video-campaign/${campaignId}`);
+
     // Click on the video title
     cy.clickOn('[model="collapsableUI.video"] > .header > .title')
       .waitFor(500)
       .scrollToPosition(0, 300);
 
     // Get the Alternative B percentage value
-    cy.wait('@616d2fffbe0dfc002afbec0c').then((interception) => {
+    cy.wait(`@${campaignId}`).then((interception) => {
       const altBValue = interception.response.body.payload.campaignOptions.videoOptions.players[0].alternativePlayers[0].percentage;
       // Push results to "task" container
       cy.task('setAlternativeB', altBValue);
@@ -213,15 +221,5 @@ describe('Aniview kicker optimization', () => {
     });
   });
 });
-// 4 cases where revenue deviation is clear:
-//  1. If A > B revenue and A > B percentage - do nothing
-//  2. If A > B revenue and A < B percentage - switch percentage 90%-10%
-//  3. If A < B revenue and A > B percentage- switch percentage 10%-90%
-//  4. If A < B revenue and A < B percentage - do nothing
-//
-// 3 cases where revenue match*
-// We define what deviation will consider = (e.g 200 and 189 will consider as =)
-//  1. If A = B revenue and A = B percentage - do nothing
-//  2. If A = B revenue and A > B percentage - switch percentage 50%-50%
-//  3. If A = B revenue and A < B percentage - switch percentage 50%-50%
-// todo: can't save the campaign in the automation (error 401)
+
+// todo: can't save the campaign in the automation (error 401) - Irrelevant for production

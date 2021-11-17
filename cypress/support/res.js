@@ -25,13 +25,6 @@ module.exports = {
 
   // Users
   //----------------------------------------------------------------------------------------------------------------
-  prodUsers: {
-    admin: { name: 'Evyatar', lastname: 'Dayan', email: 'evyatar.dayan@apester.com', password: 'Password1' },
-    superAdmin: { name: 'Admin', lastname: 'Apester', email: 'test+goldstar-best-beer-ever-123456789000@apester.com', password: 'Password1' },
-    user1: { name: 'Tomato', lastname: 'One', email: 'tomato1@yopmail.com', password: 'Password1' },
-    user2: { name: 'Tomato', lastname: 'Two', email: 'tomato2@yopmail.com', password: 'Password1' },
-    aniview: { name: 'Aniview', lastname: 'None', email: 'evyatar.dayan@apester.com', password: '3PDg36MgVN9eD6R' }
-  },
 
   automationUsers: {
     admin1: { name: 'Admin', lastname: 'One', email: 'admin1@yopmail.com', password: 'Password1' },
