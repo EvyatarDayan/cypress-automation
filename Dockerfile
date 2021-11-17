@@ -21,6 +21,10 @@ RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 # Install npm
 ADD . /app
 WORKDIR /app
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
+RUN bash setup_14.sh
+RUN apt-get update
+RUN apt-get install -y nodejs
 RUN npm install --save-dev -D cypress-iframe@1.0.1
 RUN npm install --save-dev cypress@>=6.2.0
 RUN npm install --save cypress@>=6.2.0
