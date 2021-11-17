@@ -72,6 +72,6 @@ cypress.run({
   .catch(async (err) => {
     console.log(err);
     console.log('Failed to run tests');
-
+    await reporter.report('Failed to run tests');
     process.exit(1);
   });

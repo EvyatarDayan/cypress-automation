@@ -12,7 +12,7 @@ for p in ${QUERY_STRING//&/ };do kvp=( ${p/=/ } ); k=`echo ${kvp[0]} | awk '{ pr
 [ -z "$JOB" ] && die "Missing job name"
 
 cd /app
-git checkout -f master
+git checkout -f master >/dev/null
 git pull > /dev/null
 
 node cypress-run-crawl-jobs.js $JOB
