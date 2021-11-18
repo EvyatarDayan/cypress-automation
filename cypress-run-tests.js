@@ -44,7 +44,7 @@ const generateReport = async (options) => merge(options).then(async (report) => 
 cypress.run({
   spec: testsToRun,
   // browser: 'chrome',
-  quiet: true,
+  quiet: false,
   config: {
     baseUrl: process.env.PORTAL_PUBLIC_URL,
     video: false,
@@ -62,7 +62,7 @@ cypress.run({
       html: false,
       toConsole: false,
       overwrite: false,
-      quiet: true,
+      quiet: false,
       consoleReporter: 'none'
     },
   },

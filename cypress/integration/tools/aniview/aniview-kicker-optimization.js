@@ -23,6 +23,8 @@ describe('Aniview kicker optimization', () => {
   });
 
   it('Step 1 - Aniview - Login', () => {
+    cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
+
     cy
       .goto('https://manage.aniview.com/login?redirectTo=%2F&accessRedirect=true')
       .waitForVisibleElement('#id', 20000)
@@ -30,6 +32,8 @@ describe('Aniview kicker optimization', () => {
       .typeValue('#password', aniviewPass)
       .clickOn('button');
     Cypress.Cookies.preserveOnce('token');
+
+    cy.log('Logged into Aniview');
   });
 
   it('Step 2 - Aniview - Navigate to the report', () => {
@@ -50,7 +54,7 @@ describe('Aniview kicker optimization', () => {
 
     // todo: Need to kill the test in case "NO DATA" report return from kicker
 
-    // cy.log('------- ANIVIEW RETURN NO DATA, Contact your admin -------')
+    cy.log('Navigated to report on Aniview');
 
     // cy.get('body').then((body) => {                              // it exist do...
     //     if (body.find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').length <= 0) {
@@ -84,6 +88,9 @@ describe('Aniview kicker optimization', () => {
   // ---------------------------------------------------------------------------------------------------------
 
   it('step 4 - Apester - Login', () => {
+    cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
+    cy.log(`is production ${isProduction}`);
+
     cy
       .loginToPortal(apesterAdminEmail, apesterAdminPassword)
       .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
