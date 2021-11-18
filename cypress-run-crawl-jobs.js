@@ -9,6 +9,8 @@ const { Reporter } = require('./src/reporter/reporter');
 const [jobName] = process.argv.slice(-1);
 const jobsMapping = require('./jobs-mapping');
 
+console.log('Starting to run crawl job 1');
+
 const slack = process.env.CYPRESS_JOBS_SLACK_URL ? { url: process.env.CYPRESS_JOBS_SLACK_URL } : undefined;
 
 const reporter = new Reporter({ slack });
