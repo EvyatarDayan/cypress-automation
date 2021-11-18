@@ -1,5 +1,6 @@
 const dayjs = require('dayjs');
 // const res = require('../../../support/res');
+console.log('start running kicker optimization job 1');
 
 const reportPath = Cypress.env('REPORT_PATH');
 const aniviewEmail = Cypress.env('ANIVIEW_EMAIL');
@@ -17,6 +18,7 @@ const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selected
 const percentageDIffAllowed = 20;
 let isProduction;
 console.log('start running kicker optimization job');
+
 describe('Aniview kicker optimization', () => {
   before(() => {
     isProduction = Cypress.env('NODE_ENV') === 'production';
