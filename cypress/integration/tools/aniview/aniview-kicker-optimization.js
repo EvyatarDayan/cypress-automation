@@ -16,13 +16,14 @@ const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
 const percentageDIffAllowed = 20;
 let isProduction;
-
+console.log('start running kicker optimization job');
 describe('Aniview kicker optimization', () => {
   before(() => {
     isProduction = Cypress.env('NODE_ENV') === 'production';
   });
 
   it('Step 1 - Aniview - Login', () => {
+    console.log('Login to Aniview');
     cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
 
     cy
