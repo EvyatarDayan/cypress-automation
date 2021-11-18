@@ -15,7 +15,7 @@ const slack = process.env.CYPRESS_JOBS_SLACK_URL ? { url: process.env.CYPRESS_JO
 
 const reporter = new Reporter({ slack });
 if (!jobName) {
-  console.error('No job provided');
+  console.error('No job provided ');
   process.exit(1);
 }
 const jobToRun = jobsMapping[jobName];
