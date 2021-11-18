@@ -63,6 +63,7 @@ cypress.run({
 
 }).then(async () => {
   try {
+    console.log('Finished running');
     const file = await open(reportPath);
     const result = await file.readFile('utf8');
     // report to slack / email / whatever
