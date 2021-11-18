@@ -1,7 +1,7 @@
 {
   "cluster": "gke-dev",
   "namespace": "automation-main",
-  "release": "dev-OmriKeret-chore_no-jira_log-all-the-things-f04c220a1e68c9d7e64a8380141f9ad68835d303",
+  "release": "dev-Nadavpe-chore_no-jira_log-all-the-things-0bab54270ea7ae8ca225ec524f68c4624fd70585",
   "autoDeployTags": "true",
   "envClass": "dev"
 }
