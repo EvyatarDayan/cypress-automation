@@ -1,7 +1,7 @@
 {
   "cluster": "gke-dev",
   "namespace": "automation-main",
-  "release": "dev-Nadavpe-chore_no-jira_log-all-the-things-0bab54270ea7ae8ca225ec524f68c4624fd70585",
+  "release": "dev-Nadavpe-chore_no-jira_log-all-the-things-deca1f3bd57e493481973de1dd997eaf1c8cf7f8",
   "autoDeployTags": "true",
   "envClass": "dev"
 }
