@@ -73,6 +73,7 @@ cypress.run({
   // std output link to report + descriptive msg.
   } catch (e) {
     console.log('Failed to run task');
+    console.log(e);
     await reporter.report('Failed to run task');
   }
   process.exit(0);
