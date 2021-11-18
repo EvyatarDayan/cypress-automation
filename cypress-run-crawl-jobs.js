@@ -22,6 +22,7 @@ if (!jobsMapping[jobName]) {
   process.exit(1);
 }
 
+console.log('Starting to run crawl job');
 const dateString = (new Date()).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Jerusalem' }).replace(',', '').replace(/[ |/]/g, '-');
 const reportDir = `${jobName}__${dateString}`;
 
