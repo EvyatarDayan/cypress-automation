@@ -34,6 +34,7 @@ const randomJobNum = Math.round(Math.random() * 100000);
 const reportName = `${jobName}__${dateStringWithHour}__${randomJobNum}.txt`;
 // const testDirName = `./to_delete/cypress-tests/${currentDirName}/`;
 const reportPath = `./jobs-results/${reportDir}/${reportName}`;
+console.log(`The spec to run ${jobToRun}`);
 cypress.run({
   spec: jobToRun,
   // browser: 'chrome',
