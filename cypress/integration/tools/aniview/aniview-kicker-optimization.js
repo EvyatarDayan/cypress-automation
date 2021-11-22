@@ -17,7 +17,7 @@ const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
 const percentageDIffAllowed = 20;
 let isProduction;
-cy.task('log', 'Start Running Kicker Optimization');
+// cy.task('log', 'Start Running Kicker Optimization');
 
 describe('Aniview kicker optimization', () => {
   before(() => {
