@@ -38,7 +38,7 @@ console.log(`The spec to run ${jobToRun}`);
 cypress.run({
   spec: jobToRun,
   // browser: 'chrome',
-  quiet: true,
+  quiet: false,
   config: {
     env: {
       REPORT_PATH: reportPath
@@ -57,10 +57,10 @@ cypress.run({
       // reportDir: testDirName,
       json: true,
       html: false,
-      toConsole: false,
+      toConsole: true,
       overwrite: false,
-      quiet: true,
-      consoleReporter: 'none'
+      quiet: false,
+      // consoleReporter: 'none'
     },
   },
 
@@ -76,7 +76,7 @@ cypress.run({
   // with the number of failed tests as exit code
   // std output link to report + descriptive msg.
   } catch (e) {
-    console.log('Failed to run task');
+    console.log('Failed to run task 1');
     console.log(e);
     await reporter.report('Failed to run task');
   }
