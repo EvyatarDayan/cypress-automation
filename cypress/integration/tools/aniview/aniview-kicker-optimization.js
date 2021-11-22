@@ -27,9 +27,7 @@ describe('Aniview kicker optimization', () => {
   it('Step 1 - Aniview - Login', () => {
     console.log('Login to Aniview');
     cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
-    cy.writeFile(reportPath, 'test test test', { flag: 'a+' }).catch((error) => {
-      cy.task('log', `saving file error - ${error.message}`);
-    });
+    cy.writeFile(reportPath, 'test test test', { flag: 'a+' });
     // cy
     //   .goto('https://manage.aniview.com/login?redirectTo=%2F&accessRedirect=true')
     //   .waitForVisibleElement('#id', 20000)
