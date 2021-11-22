@@ -17,7 +17,7 @@ const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
 const percentageDIffAllowed = 20;
 let isProduction;
-console.log('start running kicker optimization job');
+cy.task('log', 'Start Running Kicker Optimization');
 
 describe('Aniview kicker optimization', () => {
   before(() => {
@@ -192,8 +192,12 @@ describe('Aniview kicker optimization', () => {
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is lower than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        cy.log(latestResults);
-        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
+        cy.task('log', `Cy results - ${latestResults}`);
+        cy.task('log', `saving file to path  - ${reportPath}`);
+
+        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' }).catch((error) => {
+          cy.task('log', `saving file error - ${error.message}`);
+        });
 
       // -------------------------------------------- Case 2 -----------------------------------------------------------
       // When "NOSCRevenue" is higher than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
@@ -232,6 +236,7 @@ describe('Aniview kicker optimization', () => {
         cy.log(latestResults);
         cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
+        cy.task('log', 'finished with cypress  ');
       }
     });
   });

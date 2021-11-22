@@ -76,6 +76,10 @@ module.exports = (on, config) => {
       withSCRevenueAfterCountAndRound,
       NOSCRevenueAfterCountAndRound,
       diffAsPercentageAfterRound
-    })
+    }),
+    log(message) {
+      console.log(message);
+      return null;
+    }
   });
 };

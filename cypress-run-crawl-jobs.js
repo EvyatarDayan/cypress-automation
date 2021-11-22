@@ -50,6 +50,8 @@ cypress.run({
     defaultCommandTimeout: 10000,
     requestTimeout: 10000,
     chromeWebSecurity: false,
+    // reporter: 'mochawesome',
+
     reporterOptions: {
       // reportDir: '/usr/share/nginx/reports',
       // reportDir: testDirName,
