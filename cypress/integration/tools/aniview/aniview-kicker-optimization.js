@@ -40,9 +40,9 @@ describe('Aniview kicker optimization', () => {
 
   it('Step 2 - Aniview - Navigate to the report', () => {
     cy
-      .waitForVisibleElement(':nth-child(6) > a > .text', 30000)
+      .waitForVisibleElement(':nth-child(6) > a > .text', 60000)
       .clickOn(':nth-child(6) > a > .text') // Click on reports in the menu
-      .typeValue('.sb-search-input', reportName).waitFor(2000) // Add value in the search field
+      .typeValue('.sb-search-input', reportName).waitFor(3000) // Add value in the search field
       .clickOn('.icon-edit') // Click on edit report
       .scrollToElement('#custom-range')
       .clearValue('#custom-range')
