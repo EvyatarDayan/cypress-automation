@@ -102,7 +102,7 @@ describe('Aniview kicker optimization', () => {
       .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
   });
 
-  const campaignId = isProduction ? '614b2ebb9b24bb000c77652b' : '616d2fffbe0dfc002afbec0c';
+  const campaignId = '614b2ebb9b24bb000c77652b';
 
   // it('step 5 - Apester - Get the campaign percentage split via API', () => {
   //   // Get the response body (including the Alternative B percentage value)

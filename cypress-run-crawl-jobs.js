@@ -43,7 +43,9 @@ cypress.run({
   quiet: true,
   config: {
     env: {
-      REPORT_PATH: reportPath
+      REPORT_PATH: reportPath,
+      PORTAL_PUBLIC_URL: 'https://portal.apester.com',
+      CAMPAIGN_MANAGER_PUBLIC_URL: 'https://campaign.apester.com'
     },
     video: false,
     viewportWidth: 1400,
