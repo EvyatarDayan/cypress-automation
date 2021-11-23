@@ -96,7 +96,7 @@ describe('Aniview kicker optimization', () => {
     // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
     // cy.log(`is production ${isProduction}`);
     cy.task('log', `is production? ${isProduction}`);
-
+    cy.task('log', `portal url ${Cypress.env('PORTAL_PUBLIC_URL')}`);
     cy
       .loginToPortal(apesterAdminEmail, apesterAdminPassword)
       .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
