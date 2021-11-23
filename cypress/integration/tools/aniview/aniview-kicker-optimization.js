@@ -92,16 +92,17 @@ describe('Aniview kicker optimization', () => {
 
   // // ---------------------------------------------------------------------------------------------------------
 
-  // it('step 4 - Apester - Login', () => {
-  //   cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
-  //   cy.log(`is production ${isProduction}`);
+  it('step 4 - Apester - Login', () => {
+    // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
+    // cy.log(`is production ${isProduction}`);
+    cy.task('log', `is production? ${isProduction}`);
 
-  //   cy
-  //     .loginToPortal(apesterAdminEmail, apesterAdminPassword)
-  //     .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
-  // });
+    cy
+      .loginToPortal(apesterAdminEmail, apesterAdminPassword)
+      .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
+  });
 
-  // const campaignId = isProduction ? '614b2ebb9b24bb000c77652b' : '616d2fffbe0dfc002afbec0c';
+  const campaignId = isProduction ? '614b2ebb9b24bb000c77652b' : '616d2fffbe0dfc002afbec0c';
 
   // it('step 5 - Apester - Get the campaign percentage split via API', () => {
   //   // Get the response body (including the Alternative B percentage value)
