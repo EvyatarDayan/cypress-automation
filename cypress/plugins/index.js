@@ -78,7 +78,6 @@ module.exports = (on, config) => {
       diffAsPercentageAfterRound
     }),
     log(message) {
-      console.log('Logging a message');
       console.log(message);
       return null;
     }

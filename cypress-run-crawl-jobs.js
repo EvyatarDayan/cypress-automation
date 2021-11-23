@@ -35,7 +35,7 @@ const reportName = `${jobName}__${dateStringWithHour}__${randomJobNum}.txt`;
 // const testDirName = `./to_delete/cypress-tests/${currentDirName}/`;
 const reportPath = `./jobs-results/${reportDir}/${reportName}`;
 console.log(`The spec to run ${jobToRun}`);
-console.log(`Aniview email - ${process.env.CYPRESS_ANIVIEW_EMAIL}, Aniview pass - ${process.env.CYPRESS_ANIVIEW_PASSWORD}`,);
+// console.log(`Aniview email - ${process.env.CYPRESS_ANIVIEW_EMAIL}, Aniview pass - ${process.env.CYPRESS_ANIVIEW_PASSWORD}`,);
 
 cypress.run({
   spec: jobToRun,
