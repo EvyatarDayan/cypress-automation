@@ -69,23 +69,26 @@ describe('Aniview kicker optimization', () => {
     // }
   });
 
-  // it('Step 3 - Aniview - Get the revenues', () => {
-  //   // Viewability with No SC
-  //   cy.get('body').find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').invoke('text').then((viewabilityWithNoSC) => {
-  //     // Remove decimal and round
-  //     const viewabilityWithNoSCFinal = Math.round(viewabilityWithNoSC);
-  //     // Push results to "task" container
-  //     cy.task('setNOSCRevenue', viewabilityWithNoSCFinal);
-  //   });
+  it('Step 3 - Aniview - Get the revenues', () => {
+    // Viewability with No SC
+    cy.get('body').find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').invoke('text').then((viewabilityWithNoSC) => {
+      cy.task('log', 'Got aniview report with Smartclip');
 
-  //   // Viewability with SC
-  //   cy.get('body').find('.table > :nth-child(2) > :nth-last-child(1) > :nth-child(3)').invoke('text').then((viewabilityWithSC) => {
-  //     // Remove decimal and round
-  //     const viewabilityWithSCFinal = Math.round(viewabilityWithSC);
-  //     // Push results to "task" container
-  //     cy.task('setWithSCRevenue', viewabilityWithSCFinal);
-  //   });
-  // });
+      // Remove decimal and round
+      const viewabilityWithNoSCFinal = Math.round(viewabilityWithNoSC);
+      // Push results to "task" container
+      cy.task('setNOSCRevenue', viewabilityWithNoSCFinal);
+    });
+
+    // Viewability with SC
+    cy.get('body').find('.table > :nth-child(2) > :nth-last-child(1) > :nth-child(3)').invoke('text').then((viewabilityWithSC) => {
+      cy.task('log', 'Got aniview report without smartclip');
+      // Remove decimal and round
+      const viewabilityWithSCFinal = Math.round(viewabilityWithSC);
+      // Push results to "task" container
+      cy.task('setWithSCRevenue', viewabilityWithSCFinal);
+    });
+  });
 
   // // ---------------------------------------------------------------------------------------------------------
 
