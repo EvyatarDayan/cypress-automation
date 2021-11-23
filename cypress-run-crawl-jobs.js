@@ -40,7 +40,7 @@ console.log(`Aniview email - ${process.env.CYPRESS_ANIVIEW_EMAIL}, Aniview pass 
 cypress.run({
   spec: jobToRun,
   // browser: 'chrome',
-  quiet: false,
+  quiet: true,
   config: {
     env: {
       REPORT_PATH: reportPath
@@ -59,10 +59,9 @@ cypress.run({
       // reportDir: testDirName,
       json: true,
       html: false,
-      toConsole: false,
+      toConsole: true,
       overwrite: false,
-      quiet: false,
-      consoleReporter: 'none'
+      quiet: true,
     },
   },
 
