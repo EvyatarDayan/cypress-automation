@@ -170,6 +170,11 @@ Cypress.Commands.add('hoverElement', (selector) => {
   cy.get(selector).realHover('center');
 });
 
+// -- hoverXpathElement --
+Cypress.Commands.add('hoverXpathElement', (selector) => {
+  cy.xpath(selector).realHover('center');
+});
+
 // -- updateAttr --
 Cypress.Commands.add('updateAttr', (selector, attrName, attrValue) => {
   cy.get(selector).invoke('attr', attrName, attrValue);

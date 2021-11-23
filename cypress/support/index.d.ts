@@ -35,6 +35,7 @@ declare namespace Cypress {
         scrollToElement(a: string): Chainable
         scrollToPosition(a: number, b: number): Chainable
         hoverElement(a: string): Chainable
+        hoverXpathElement(a: string): Chainable
         multipleClicks(a: string, b: number): Chainable
         dragAndDrop(a: string, b: string)
         dragAndDropByPixels(a: string, b: number, c: number)
