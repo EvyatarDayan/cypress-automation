@@ -95,7 +95,7 @@ describe('Aniview kicker optimization', () => {
   it('step 4 - Apester - Login', () => {
     // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
     // cy.log(`is production ${isProduction}`);
-    cy.task('log', `is production? ${isProduction}`);
+    // cy.task('log', `is production? ${isProduction}`);
     cy.task('log', `portal url ${Cypress.env('PORTAL_PUBLIC_URL')}`);
     cy
       .loginToPortal(apesterAdminEmail, apesterAdminPassword)
@@ -186,10 +186,10 @@ describe('Aniview kicker optimization', () => {
       // When "NOSCRevenue" is lower than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
       if (vals.NOSCRevenueAfterCountAndRound < vals.withSCRevenueAfterCountAndRound && vals.diffAsPercentageAfterRound > percentageDIffAllowed) {
         const alternativeBUpdatedValue = 90;
-        cy
-        // Update alternativeB% value
-          .clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
+        // cy
+        // // Update alternativeB% value
+        //   .clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
         // Scroll down and save the campaign
         // .scrollToPosition(0, 1000)
         // .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]')  // Click on save campaign
@@ -207,10 +207,10 @@ describe('Aniview kicker optimization', () => {
       // When "NOSCRevenue" is higher than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
       } else if (vals.NOSCRevenueAfterCountAndRound > vals.withSCRevenueAfterCountAndRound && vals.diffAsPercentageAfterRound > percentageDIffAllowed) {
         const alternativeBUpdatedValue = 10;
-        cy
-          // Update alternativeB% value
-          .clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
+        // cy
+        //   // Update alternativeB% value
+        //   .clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
         // Scroll down and save the campaign
         // .scrollToPosition(0, 1000)
         // .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]')  // Click on save campaign
@@ -226,10 +226,10 @@ describe('Aniview kicker optimization', () => {
       // When "diffAsPercentageAfterRound" is lower or equal to "percentageDIffAllowed"
       else if (vals.diffAsPercentageAfterRound <= percentageDIffAllowed) {
         const alternativeBUpdatedValue = 50;
-        cy
-        // Update alternativeB% value
-          .clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
+        // cy
+        // // Update alternativeB% value
+        //   .clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
         // Scroll down and save the campaign
         // .scrollToPosition(0, 1000)
         // .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]')  // Click on save campaign
