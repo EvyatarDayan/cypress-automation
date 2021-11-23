@@ -54,6 +54,7 @@ describe('Create story', async () => {
       .clickOn(':nth-child(5) > .input-box-wrapper > .label')
       .typeValue(':nth-child(6) > .input-box-wrapper > .designer-input', '10') // angle
       .clickOn('.input-box-wrapper > .ic')
+        .pauseHere()
       // Set stroke
       .clickOn('.sign > .ic') // expand
       .typeValue('.expandable-content > :nth-child(1) > .input-box-wrapper > .designer-input', '#828385') // color

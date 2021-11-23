@@ -1,13 +1,13 @@
-import { fetchAllLayouts, findLayoutId } from '../../../../support/utils';
+import { fetchAllLayouts, findLayoutId } from '../../../../../support/utils';
 
 const cyTools = require('randomstring');
-const res = require('../../../../support/res');
+const res = require('../../../../../support/res');
 
 let storyLayoutId;
 
 const randomNumber = cyTools.generate({ length: 5, charset: '1234567890' });
 
-describe('Create story', async () => {
+describe('Create story', () => {
   before(async () => {
     const layouts = await fetchAllLayouts();
     storyLayoutId = findLayoutId('story', layouts);
@@ -73,11 +73,6 @@ describe('Create story', async () => {
       .waitFor(5000);
   });
 
-  it('Delete the unit', () => {
-    // click on the preview button
-    cy
-      .clickOn('[ng-if="WH.published"] > .workspace-header__view');
-  });
   // it('Delete the unit', () => {
   //   cy
   //       .goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`)
@@ -91,4 +86,24 @@ describe('Create story', async () => {
   //       .waitFor(500)
   //       .clickOn('.warning-popup__container--accept-btn');
   // });
+
+  it('Validate preview page', () => {
+    cy
+    // Close "Welcome to story" page if exist
+      .clickIfExist('.story-info-overlay-body__left--button')
+      .waitFor(2000)
+    // click on the preview button
+
+      .clickOn('[ng-if="WH.published"] > .workspace-header__view')
+
+      .clickOn('[ng-if="onText"]')
+      .waitFor(500)
+      .clickOn('[ng-if="offText"]');
+
+    // .switchToIframe('#iframe-wrapper > iframe')
+    // .iframeClickOn('#iframe-wrapper > iframe', '.shareButton');
+
+    // .refresh();
+    // todo: Fail to display the preview on automation only: -- Cannot read properties of undefined (reading 'autoFullscreen'
+  });
 });
