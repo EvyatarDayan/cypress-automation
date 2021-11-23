@@ -59,10 +59,10 @@ cypress.run({
       // reportDir: testDirName,
       json: true,
       html: false,
-      toConsole: true,
+      toConsole: false,
       overwrite: false,
       quiet: false,
-      // consoleReporter: 'none'
+      consoleReporter: 'none'
     },
   },
 
