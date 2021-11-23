@@ -138,10 +138,10 @@ describe('Aniview kicker optimization', () => {
 
   it('step 6 - Apester - Revenue report before count (the alternative %) and round (to integer)', () => {
     cy.task('getAllSavedValues').then((vals) => {
-      cy.log(`=myLog= NOSCRevenue is: ${JSON.stringify(vals.NOSCRevenue)}`);
-      cy.log(`=myLog= withSCRevenue is: ${JSON.stringify(vals.withSCRevenue)}`);
-      cy.log(`=myLog= alternativeA(%) is: ${JSON.stringify(vals.alternativeA)}`);
-      cy.log(`=myLog= alternativeB(%) is: ${JSON.stringify(vals.alternativeB)}`);
+      cy.task('log', `=myLog= NOSCRevenue is: ${JSON.stringify(vals.NOSCRevenue)}`);
+      cy.task('log', `=myLog= withSCRevenue is: ${JSON.stringify(vals.withSCRevenue)}`);
+      cy.task('log', `=myLog= alternativeA(%) is: ${JSON.stringify(vals.alternativeA)}`);
+      cy.task('log', `=myLog= alternativeB(%) is: ${JSON.stringify(vals.alternativeB)}`);
     });
   });
 
@@ -150,7 +150,7 @@ describe('Aniview kicker optimization', () => {
     cy.task('getAllSavedValues').then((vals) => {
       const NOSCRevenueAfterCount = (vals.NOSCRevenue / vals.alternativeA);
       const NOSCRevenueAfterCountAndRound = Math.round(NOSCRevenueAfterCount);
-      cy.log(`=myLog= NOSCRevenue after count and round: ${NOSCRevenueAfterCountAndRound}`);
+      // cy.log(`=myLog= NOSCRevenue after count and round: ${NOSCRevenueAfterCountAndRound}`);
       // Push results to "task" container
       cy.task('setNOSCRevenueAfterCountAndRound', NOSCRevenueAfterCountAndRound); // NOSCRevenueAfterCountAndRound
     });
@@ -159,7 +159,8 @@ describe('Aniview kicker optimization', () => {
     cy.task('getAllSavedValues').then((vals) => {
       const withSCRevenueAfterCount = (vals.withSCRevenue / vals.alternativeB);
       const withSCRevenueAfterCountAndRound = Math.round(withSCRevenueAfterCount);
-      cy.log(`=myLog= withSCRevenue after count and round: ${withSCRevenueAfterCountAndRound}`);
+      cy.task('log', `=myLog= withSCRevenue after count and round: ${withSCRevenueAfterCountAndRound}`);
+
       // Push results to "task" container
       cy.task('setwithSCRevenueAfterCountAndRound', withSCRevenueAfterCountAndRound); // withSCRevenueAfterCountAndRound
     });
@@ -174,7 +175,7 @@ describe('Aniview kicker optimization', () => {
       // eslint-disable-next-line no-mixed-operators
       const diffAsPercentage = diff * 100 / sum;
       const diffAsPercentageAfterRound = Math.round(diffAsPercentage); // Round the decimal number to integer
-      cy.log(`=myLog= Percentage difference is: ${diffAsPercentageAfterRound}%`);
+      cy.task('log', `=myLog= Percentage difference is: ${diffAsPercentageAfterRound}%`);
       // Push results to "task" container
       cy.task('setDiffAsPercentageAfterRound', diffAsPercentageAfterRound);
     });
@@ -216,7 +217,7 @@ describe('Aniview kicker optimization', () => {
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is higher than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        cy.log(`=myLog= ${latestResults}`);
+        cy.task('log', `=myLog= ${latestResults}`);
         cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
         // eslint-disable-next-line brace-style
       }
@@ -236,7 +237,7 @@ describe('Aniview kicker optimization', () => {
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is pretty equal to "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
         const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${vals.diffAsPercentageAfterRound}%`;
-        cy.log(latestResults);
+        // cy.log(latestResults);
         cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
         cy.task('log', 'finished with cypress  ');
