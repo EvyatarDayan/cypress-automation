@@ -116,12 +116,15 @@ describe('Aniview kicker optimization', () => {
     });
 
     // Open the campaign editor
-    cy.goto(`${Cypress.env('CAMPAIGN_MANAGER_PUBLIC_URL')}/#/video-campaign/${campaignId}`);
-
-    // Click on the video title
-    cy.clickOn('[model="collapsableUI.video"] > .header > .title')
+    cy.goto(`${Cypress.env('CAMPAIGN_MANAGER_PUBLIC_URL')}/#/video-campaign/${campaignId}`)
+      .waitForVisibleElement('[model="collapsableUI.video"] > .header > .title', 20000).clickOn('[model="collapsableUI.video"] > .header > .title')
       .waitFor(500)
       .scrollToPosition(0, 300);
+
+    // Click on the video title
+    // cy.clickOn('[model="collapsableUI.video"] > .header > .title')
+    //   .waitFor(500)
+    //   .scrollToPosition(0, 300);
 
     // Get the Alternative B percentage value
     cy.wait(`@${campaignId}`).then((interception) => {
