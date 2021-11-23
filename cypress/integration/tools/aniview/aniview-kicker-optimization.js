@@ -24,50 +24,50 @@ describe('Aniview kicker optimization', () => {
   });
 
   it('Step 1 - Aniview - Login', () => {
-    cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
+    // cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
     cy.task('log', `Login to Aniview ${aniviewEmail} ${aniviewPass}`);
 
-    // cy
-    //   .goto('https://manage.aniview.com/login?redirectTo=%2F&accessRedirect=true')
-    //   .waitForVisibleElement('#id', 20000)
-    //   .typeValue('#id', aniviewEmail)
-    //   .typeValue('#password', aniviewPass)
-    //   .clickOn('button');
-    // Cypress.Cookies.preserveOnce('token');
+    cy
+      .goto('https://manage.aniview.com/login?redirectTo=%2F&accessRedirect=true')
+      .waitForVisibleElement('#id', 20000)
+      .typeValue('#id', aniviewEmail)
+      .typeValue('#password', aniviewPass)
+      .clickOn('button');
+    Cypress.Cookies.preserveOnce('token');
 
     // cy.log('Logged into Aniview');
   });
 
-  // it('Step 2 - Aniview - Navigate to the report', () => {
-  //   cy
-  //     .waitForVisibleElement(':nth-child(6) > a > .text', 60000)
-  //     .clickOn(':nth-child(6) > a > .text') // Click on reports in the menu
-  //     .typeValue('.sb-search-input', reportName).waitFor(3000) // Add value in the search field
-  //     .clickOn('.icon-edit') // Click on edit report
-  //     .scrollToElement('#custom-range')
-  //     .clearValue('#custom-range')
-  //     .typeValue('#custom-range', timeframe) // Add the timeframe
-  //     .scrollToElement('.button-save')
-  //     .clickOn('.button-save')
-  //     .waitFor(1000)
-  //     .clickOn('.icon-viewReport')
-  //   // Wait for the results to display
-  //     .waitForVisibleElement('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)', 30000);
+  it('Step 2 - Aniview - Navigate to the report', () => {
+    cy
+      .waitForVisibleElement(':nth-child(6) > a > .text', 60000)
+      .clickOn(':nth-child(6) > a > .text') // Click on reports in the menu
+      .typeValue('.sb-search-input', reportName).waitFor(3000) // Add value in the search field
+      .clickOn('.icon-edit') // Click on edit report
+      .scrollToElement('#custom-range')
+      .clearValue('#custom-range')
+      .typeValue('#custom-range', timeframe) // Add the timeframe
+      .scrollToElement('.button-save')
+      .clickOn('.button-save')
+      .waitFor(1000)
+      .clickOn('.icon-viewReport')
+    // Wait for the results to display
+      .waitForVisibleElement('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)', 30000);
 
-  //   // todo: Need to kill the test in case "NO DATA" report return from kicker
+    //   // todo: Need to kill the test in case "NO DATA" report return from kicker
 
-  //   cy.log('Navigated to report on Aniview');
+    // cy.log('Navigated to report on Aniview');
 
-  //   // cy.get('body').then((body) => {                              // it exist do...
-  //   //     if (body.find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').length <= 0) {
-  //   //         cy.pauseHere()
-  //   //     }
-  //   // });
+    // cy.get('body').then((body) => {                              // it exist do...
+    //     if (body.find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').length <= 0) {
+    //         cy.pauseHere()
+    //     }
+    // });
 
-  //   // if (section > h3 exist){
-  //   //     throw Error("Fail to display aniview report, aborting...")
-  //   // }
-  // });
+    // if (section > h3 exist){
+    //     throw Error("Fail to display aniview report, aborting...")
+    // }
+  });
 
   // it('Step 3 - Aniview - Get the revenues', () => {
   //   // Viewability with No SC
