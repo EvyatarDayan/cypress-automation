@@ -154,8 +154,7 @@ describe('Aniview kicker optimization', () => {
       Apester Campaign alternativeA(%) is: ${vals.alternativeA}
       Apester Campaign alternativeB(%) is: ${vals.alternativeB}
       Apester Noremelized revenue without SC: ${NormelizeRevnueWithoutSC}
-      Apester Noremelized revenue with SC: ${NoemrilizedRevWIthSC}
-      =Calculation Logic End= \n\n
+      Apester Noremelized revenue with SC: ${NoemrilizedRevWIthSC}\n=Calculation Logic End= \n\n
       `;
       cy.writeFile(reportPath, `${inputsForCalculation}`, { flag: 'a+' });
 
