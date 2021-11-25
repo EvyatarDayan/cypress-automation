@@ -149,11 +149,11 @@ describe('Aniview kicker optimization', () => {
       const NoemrilizedRevWIthSC = (vals.withSCRevenue / vals.alternativeB);
 
       const inputsForCalculation = `=Calculation Logic= \n
-      NOSCRevenue is: ${vals.NOSCRevenue}\n
-      withSCRevenue is: ${vals.withSCRevenue}\n
-      Apester Campaign alternativeA(%) is: ${vals.alternativeA}\n
-      Apester Campaign alternativeB(%) is: ${vals.alternativeB}\n
-      Apester Noremelized revenue without SC: ${NormelizeRevnueWithoutSC}\n
+      NOSCRevenue is: ${vals.NOSCRevenue}
+      withSCRevenue is: ${vals.withSCRevenue}
+      Apester Campaign alternativeA(%) is: ${vals.alternativeA}
+      Apester Campaign alternativeB(%) is: ${vals.alternativeB}
+      Apester Noremelized revenue without SC: ${NormelizeRevnueWithoutSC}
       Apester Noremelized revenue with SC: ${NoemrilizedRevWIthSC}
       =Calculation Logic End= \n\n
       `;
@@ -259,7 +259,7 @@ describe('Aniview kicker optimization', () => {
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is pretty equal to "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
         const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${vals.diffAsPercentageAfterRound}%`;
         // cy.log(latestResults);
-        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n==== Decision ===\n${latestResults}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
         cy.task('log', 'finished with cypress  ');
       }
