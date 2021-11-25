@@ -19,7 +19,7 @@ declare namespace Cypress {
         clickOnXpath(a: string): Chainable
         typeValueByXpath(a: string, b: string): Chainable
         doubleClickOnXpath(a: string): Chainable
-        back(): Chainable
+        back(a: number): Chainable
         waitFor(a: number): Chainable
         waitForVisibleElement(a: string, b: number): Chainable
         refresh(): Chainable

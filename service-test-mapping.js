@@ -14,6 +14,6 @@ module.exports = {
   'campaign-api': ['./cypress/integration/tests/sanity/campaign/api/**/*.spec.js'].concat(sanityTests), // campaigns api.
   display: ['./cypress/integration/tests/sanity/portal/media/**/*.spec.js'].concat(sanityTests), // all of the serving logic (playlist, strip, etc).
   match: [], // ad serving logic.
-  interaction: ['./cypress/integration/tests/sanity/portal/media/sanity-dashboard-interactions.spec.js'].concat(sanityTests), // service responsible for interactions.
+  interaction: ['./cypress/integration/tests/sanity/portal/media/sanity-dashboard-story-strip.spec.js'].concat(sanityTests), // service responsible for interactions.
   users: ['./cypress/integration/tests/sanity/portal/authentication/**/*.spec.js'].concat(sanityTests), // service responsible for users registration / channels   creation.
 };

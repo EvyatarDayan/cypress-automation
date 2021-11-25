@@ -109,8 +109,11 @@ Cypress.Commands.add('clearValue', (selector) => {
 });
 
 // -- back --
-Cypress.Commands.add('back', () => {
-  cy.go('back');
+Cypress.Commands.add('back', (numberOfTimes) => {
+  for (let i = 0; i < numberOfTimes; i++) {
+    cy.go('back');
+    cy.wait(200);
+  }
 });
 
 // -- refresh --
@@ -182,7 +185,7 @@ Cypress.Commands.add('updateAttr', (selector, attrName, attrValue) => {
 
 // -- openInCurrentTab --                                       // This will remove "target" att from the
 Cypress.Commands.add('openInCurrentTab', (selector) => { // element in order to open the link in the same tab
-  cy.get(selector).invoke('removeAttr', 'target').click(); // (Cypress not supporting multiple tabs)
+  cy.get(selector).invoke('removeAttr', 'target').click({force: true}); // (Cypress not supporting multiple tabs)
 });
 
 // -- loginToPortal --
