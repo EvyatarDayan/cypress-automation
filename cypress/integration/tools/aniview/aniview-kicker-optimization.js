@@ -145,6 +145,20 @@ describe('Aniview kicker optimization', () => {
 
   it('step 6 - Apester - Revenue report before count (the alternative %) and round (to integer)', () => {
     cy.task('getAllSavedValues').then((vals) => {
+      const NormelizeRevnueWithoutSC = (vals.NOSCRevenue / vals.alternativeA);
+      const NoemrilizedRevWIthSC = (vals.withSCRevenue / vals.alternativeB);
+
+      const inputsForCalculation = `=Calculation Logic= \n
+      NOSCRevenue is: ${vals.NOSCRevenue}\n
+      withSCRevenue is: ${vals.withSCRevenue}\n
+      Apester Campaign alternativeA(%) is: ${vals.alternativeA}\n
+      Apester Campaign alternativeB(%) is: ${vals.alternativeB}\n
+      Apester Noremelized revenue without SC: ${NormelizeRevnueWithoutSC}\n
+      Apester Noremelized revenue with SC: ${NoemrilizedRevWIthSC}
+      =Calculation Logic End= \n\n
+      `;
+      cy.writeFile(reportPath, `${inputsForCalculation}`, { flag: 'a+' });
+
       cy.task('log', `=myLog= NOSCRevenue is: ${JSON.stringify(vals.NOSCRevenue)}`);
       cy.task('log', `=myLog= withSCRevenue is: ${JSON.stringify(vals.withSCRevenue)}`);
       cy.task('log', `=myLog= alternativeA(%) is: ${JSON.stringify(vals.alternativeA)}`);
