@@ -70,25 +70,25 @@ cypress.run({
     },
   },
 
-});
-.then(async () => {
-  try {
-    console.log('Finished running');
-    const file = await open(reportPath);
-    const result = await file.readFile('utf8');
-    // report to slack / email / whatever
-    await reporter.report(result);
-    await file.close();
-  // print test results and exit
-  // with the number of failed tests as exit code
-  // std output link to report + descriptive msg.
-  } catch (e) {
-    console.log('Failed to run task 1');
-    console.log(e);
-    await reporter.report('Failed to run task');
-  }
-  process.exit(0);
 })
+  .then(async () => {
+    try {
+      console.log('Finished running');
+      const file = await open(reportPath);
+      const result = await file.readFile('utf8');
+      // report to slack / email / whatever
+      await reporter.report(result);
+      await file.close();
+      // print test results and exit
+      // with the number of failed tests as exit code
+      // std output link to report + descriptive msg.
+    } catch (e) {
+      console.log('Failed to run task 1');
+      console.log(e);
+      await reporter.report('Failed to run task');
+    }
+    process.exit(0);
+  })
   .catch(async (err) => {
     console.log('Failed to run task');
     console.log(err);
