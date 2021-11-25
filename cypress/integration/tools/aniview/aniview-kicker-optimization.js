@@ -149,12 +149,12 @@ describe('Aniview kicker optimization', () => {
       const NoemrilizedRevWIthSC = (vals.withSCRevenue / vals.alternativeB);
 
       const inputsForCalculation = `=Calculation Logic= \n
-      NOSCRevenue is: ${vals.NOSCRevenue}
-      withSCRevenue is: ${vals.withSCRevenue}
-      Apester Campaign alternativeA(%) is: ${vals.alternativeA}
-      Apester Campaign alternativeB(%) is: ${vals.alternativeB}
-      Apester Noremelized revenue without SC: ${NormelizeRevnueWithoutSC}
-      Apester Noremelized revenue with SC: ${NoemrilizedRevWIthSC}
+      NO Smartclip revnue is: ${vals.NOSCRevenue}
+      WIth Smartclip revnue is: ${vals.withSCRevenue}
+      Apester Campaign alternativeA(%) - without Smartclip is: ${vals.alternativeA}
+      Apester Campaign alternativeB(%) - with Smartclip is: ${vals.alternativeB}
+      Apester Noremelized revenue without Smartclip: ${NormelizeRevnueWithoutSC}
+      Apester Noremelized revenue with Smartclip: ${NoemrilizedRevWIthSC}
       \n=Calculation Logic End= \n\n
       `;
       cy.writeFile(reportPath, `${inputsForCalculation}`, { flag: 'a+' });
@@ -256,7 +256,7 @@ describe('Aniview kicker optimization', () => {
         // .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]')  // Click on save campaign
 
         //  Report
-        const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is pretty equal to "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
+        const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is pretty equal to "with Smartclip revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
         const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${vals.diffAsPercentageAfterRound}%`;
         // cy.log(latestResults);
         cy.writeFile(reportPath, `\n==== Decision ===\n${latestResults}`, { flag: 'a+' });
