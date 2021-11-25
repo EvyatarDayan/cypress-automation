@@ -20,7 +20,12 @@ let isProduction;
 
 describe('Aniview kicker optimization', () => {
   before(() => {
-    isProduction = Cypress.env('NODE_ENV') === 'production';
+    Cypress.Cookies.defaults({
+      preserve: ['userSession', 'qmerceSession'],
+    });
+  });
+  beforeEach(() => {
+
   });
 
   it('Step 1 - Aniview - Login', () => {
@@ -98,8 +103,7 @@ describe('Aniview kicker optimization', () => {
     // cy.task('log', `is production? ${isProduction}`);
     cy.task('log', `portal url ${Cypress.env('PORTAL_PUBLIC_URL')}`);
     cy
-      .loginToPortal(apesterAdminEmail, apesterAdminPassword)
-      .preserveCookie(isProduction ? 'userSession' : 'automationApesterSession');
+      .loginWithNoUI(apesterAdminEmail, apesterAdminPassword);
   });
 
   const campaignId = '614b2ebb9b24bb000c77652b';

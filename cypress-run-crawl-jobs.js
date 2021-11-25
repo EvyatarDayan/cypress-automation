@@ -41,12 +41,14 @@ cypress.run({
   spec: jobToRun,
   // browser: 'chrome',
   quiet: true,
+  // noExit: true,
   config: {
     env: {
       REPORT_PATH: reportPath,
       PORTAL_PUBLIC_URL: 'https://portal.apester.com',
       CAMPAIGN_MANAGER_PUBLIC_URL: 'https://campaign.apester.com',
-      CAMPAIGN_PUBLIC_URL: 'https://campaign-api.apester.com'
+      CAMPAIGN_PUBLIC_URL: 'https://campaign-api.apester.com',
+      USERS_PUBLIC_URL: 'https://users.apester.com'
     },
     video: false,
     viewportWidth: 1400,
@@ -68,7 +70,8 @@ cypress.run({
     },
   },
 
-}).then(async () => {
+});
+.then(async () => {
   try {
     console.log('Finished running');
     const file = await open(reportPath);

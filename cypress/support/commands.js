@@ -180,17 +180,37 @@ Cypress.Commands.add('openInCurrentTab', (selector) => { // element in order to 
   cy.get(selector).invoke('removeAttr', 'target').click(); // (Cypress not supporting multiple tabs)
 });
 
+Cypress.Commands.add('loginWithNoUI', (email, password) => {
+  cy.goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`);
+
+  cy.request({
+    url: `${Cypress.env('USERS_PUBLIC_URL')}/login`,
+    method: 'POST',
+    body: { email, password, username: email, captcha: 'test' },
+    headers: {
+      'admin-token': Cypress.env('SERVER_ADMIN_TOKEN')
+    },
+
+  });
+});
+
 // -- loginToPortal --
 Cypress.Commands.add('loginToPortal', (email, password) => {
+  cy.intercept('POST', '**/login', (req) => {
+    req.headers['admin-token'] = Cypress.env('ADMIN_TOKEN');
+  }).as('login');
+
   cy.goto(`${Cypress.env('PORTAL_PUBLIC_URL')}/auth/login`);
+
   cy.typeValue('[style="grid-row:1"] > .InputField_input__1JpI-', email);
   cy.typeValue('[style="grid-row:3"] > .InputField_input__1JpI-', password);
   cy.clickOn('.apeButton');
+  cy.wait('@login');
 });
 
 // -- preserveCookie --
-Cypress.Commands.add('preserveCookie', (cookieName) => {
-  Cypress.Cookies.preserveOnce(cookieName);
+Cypress.Commands.add('preserveCookie', (...cookieNames) => {
+  Cypress.Cookies.preserveOnce(...cookieNames);
 });
 
 // ASSERTIONS
