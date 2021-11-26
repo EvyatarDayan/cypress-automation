@@ -57,7 +57,7 @@ describe('Aniview kicker optimization', () => {
       .waitFor(1000)
       .clickOn('.icon-viewReport')
     // Wait for the results to display
-      .waitForVisibleElement('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)', 30000);
+      .waitForVisibleElement('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)', 120000);
 
     //   // todo: Need to kill the test in case "NO DATA" report return from kicker
 
