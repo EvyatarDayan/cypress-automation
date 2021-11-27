@@ -28,7 +28,7 @@ describe('Aniview kicker optimization', () => {
 
   });
 
-  it('Step 1 - Aniview - Login', () => {
+  it('Step 1 - Aniview - Login', { retries: { runMode: 2, } }, () => {
     // cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
     // cy.task('log', `Login to Aniview ${aniviewEmail} ${aniviewPass}`);
 
@@ -43,7 +43,7 @@ describe('Aniview kicker optimization', () => {
     // cy.log('Logged into Aniview');
   });
 
-  it('Step 2 - Aniview - Navigate to the report', () => {
+  it('Step 2 - Aniview - Navigate to the report', { retries: { runMode: 2, } }, () => {
     cy
       .waitForVisibleElement(':nth-child(6) > a > .text', 60000)
       .clickOn(':nth-child(6) > a > .text') // Click on reports in the menu
@@ -74,7 +74,7 @@ describe('Aniview kicker optimization', () => {
     // }
   });
 
-  it('Step 3 - Aniview - Get the revenues', () => {
+  it('Step 3 - Aniview - Get the revenues', { retries: { runMode: 2, } }, () => {
     // Viewability with No SC
     cy.get('body').find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').invoke('text').then((viewabilityWithNoSC) => {
       cy.task('log', 'Got aniview report with Smartclip');
@@ -97,7 +97,7 @@ describe('Aniview kicker optimization', () => {
 
   // // ---------------------------------------------------------------------------------------------------------
 
-  it('step 4 - Apester - Login', () => {
+  it('step 4 - Apester - Login', { retries: { runMode: 2, } }, () => {
     // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
     // cy.log(`is production ${isProduction}`);
     // cy.task('log', `is production? ${isProduction}`);
@@ -108,7 +108,7 @@ describe('Aniview kicker optimization', () => {
 
   const campaignId = '614b2ebb9b24bb000c77652b';
 
-  it('step 5 - Apester - Get the campaign percentage split via API', () => {
+  it('step 5 - Apester - Get the campaign percentage split via API', { retries: { runMode: 2, } }, () => {
     // Get the response body (including the Alternative B percentage value)
     cy.intercept({
       method: 'GET',
@@ -187,7 +187,7 @@ describe('Aniview kicker optimization', () => {
     });
   });
 
-  it('step 8 - Apester - Update campaign allocation', () => {
+  it('step 8 - Apester - Update campaign allocation', { retries: { runMode: 2, } }, () => {
     // -------------------------------------------- Calculate the difference -------------------------------------------
     cy.task('getAllSavedValues').then((vals) => {
       const sum = vals.NOSCRevenueAfterCountAndRound + vals.withSCRevenueAfterCountAndRound; // sum of both numbers
