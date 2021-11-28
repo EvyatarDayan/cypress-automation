@@ -217,7 +217,7 @@ describe('Aniview kicker optimization', () => {
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is lower than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        cy.task('log', `Cy results - ${latestResults}`);
+        cy.writeFile(reportPath, `\n==== Decision ===\n${latestResults}`, { flag: 'a+' });
         cy.task('log', `saving file to path  - ${reportPath}`);
 
         cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' }).catch((error) => {
@@ -238,7 +238,7 @@ describe('Aniview kicker optimization', () => {
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is higher than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        cy.task('log', `=myLog= ${latestResults}`);
+        cy.writeFile(reportPath, `\n==== Decision ===\n${latestResults}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
         // eslint-disable-next-line brace-style
       }
