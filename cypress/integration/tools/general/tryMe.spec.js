@@ -1,10 +1,27 @@
-// const res = require('../../../support/res');
+import { fetchAllLayouts, findLayoutId } from '../../../support/utils';
 
-describe('Edit gallery', () => {
-  it('measures page load on the home page', () => {
-    cy.goto('https://portal.apester.com/auth/login')
-      .typeValue('[style="grid-row:1"] > .InputField_input__1JpI-', 'test+goldstar-best-beer-ever-123456789000@apester.com')
-      .typeValue('[style="grid-row:3"] > .InputField_input__1JpI-', 'SqVACeh4M')
-      .clickOn('.apeButton');
+const res = require('../../../support/res');
+
+let storyLayoutId;
+
+describe('Create story', async () => {
+  before(async () => {
+    const layouts = await fetchAllLayouts();
+    storyLayoutId = findLayoutId('story', layouts);
+  });
+
+  it('Login', () => {
+    cy
+      .loginToPortal(res.automationUsers.user3.email, res.automationUsers.user3.password)
+      .goto(`${Cypress.env('EDITOR_PUBLIC_URL')}/editor/new?layoutId=${storyLayoutId}`)
+      .preserveCookie('automationApesterSession');
+  });
+
+  it('step 2 - Create the story', () => {
+    cy
+    // Close "Welcome to story" page if exist
+      .clickIfExist('.story-info-overlay-header__right > .icon-button')
+        .waitFor(2000)
+      .clickOn('[data-cy=story-layouts-media-8]');
   });
 });
