@@ -39,8 +39,9 @@ console.log(`The spec to run ${jobToRun}`);
 
 cypress.run({
   spec: jobToRun,
-  // browser: 'chrome',
+  browser: 'chrome',
   quiet: true,
+  headed: true,
   // noExit: true,
   config: {
     env: {
@@ -48,7 +49,8 @@ cypress.run({
       PORTAL_PUBLIC_URL: 'https://portal.apester.com',
       CAMPAIGN_MANAGER_PUBLIC_URL: 'https://campaign.apester.com',
       CAMPAIGN_PUBLIC_URL: 'https://campaign-api.apester.com',
-      USERS_PUBLIC_URL: 'https://users.apester.com'
+      USERS_PUBLIC_URL: 'https://users.apester.com',
+
     },
     video: false,
     viewportWidth: 1400,
