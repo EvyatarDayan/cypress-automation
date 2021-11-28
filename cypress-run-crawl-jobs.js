@@ -40,9 +40,10 @@ console.log(`The spec to run ${jobToRun}`);
 cypress.run({
   spec: jobToRun,
   // browser: 'chrome',
-  quiet: true,
   // headed: true,
+  quiet: true,
   // noExit: true,
+
   config: {
     env: {
       REPORT_PATH: reportPath,
