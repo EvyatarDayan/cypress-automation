@@ -28,7 +28,7 @@ describe('Aniview kicker optimization', () => {
 
   });
 
-  it('Step 1 - Aniview - Login', { retries: { runMode: 2, } }, () => {
+  it('Step 1 - Aniview - Login', { retries: { runMode: 3, } }, () => {
     // cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
     // cy.task('log', `Login to Aniview ${aniviewEmail} ${aniviewPass}`);
 
@@ -43,9 +43,9 @@ describe('Aniview kicker optimization', () => {
     // cy.log('Logged into Aniview');
   });
 
-  it('Step 2 - Aniview - Navigate to the report', { retries: { runMode: 2, } }, () => {
+  it('Step 2 - Aniview - Navigate to the report', { retries: { runMode: 3, } }, () => {
     cy
-      .waitForVisibleElement(':nth-child(6) > a > .text', 60000)
+      .waitForVisibleElement(':nth-child(6) > a > .text', 70000)
       .clickOn(':nth-child(6) > a > .text') // Click on reports in the menu
       .typeValue('.sb-search-input', reportName).waitFor(3000) // Add value in the search field
       .clickOn('.icon-edit') // Click on edit report
@@ -60,7 +60,7 @@ describe('Aniview kicker optimization', () => {
       .waitForVisibleElement('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)', 120000);
   });
 
-  it('Step 3 - Aniview - Get the revenues', { retries: { runMode: 2, } }, () => {
+  it('Step 3 - Aniview - Get the revenues', { retries: { runMode: 3, } }, () => {
     // Viewability with No SC
     cy.get('body').find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').invoke('text').then((viewabilityWithNoSC) => {
       cy.task('log', 'Got aniview report with Smartclip');
@@ -87,7 +87,7 @@ describe('Aniview kicker optimization', () => {
   });
   // // ---------------------------------------------------------------------------------------------------------
 
-  it('step 4 - Apester - Login', { retries: { runMode: 2, } }, () => {
+  it('step 4 - Apester - Login', { retries: { runMode: 3, } }, () => {
     if (validAniviewResults) {
       // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
       // cy.log(`is production ${isProduction}`);
@@ -99,7 +99,7 @@ describe('Aniview kicker optimization', () => {
 
   const campaignId = '614b2ebb9b24bb000c77652b';
 
-  it('step 5 - Apester - Get the campaign percentage split via API', { retries: { runMode: 2, } }, () => {
+  it('step 5 - Apester - Get the campaign percentage split via API', { retries: { runMode: 3, } }, () => {
     if (validAniviewResults) {
       // Get the response body (including the Alternative B percentage value)
       cy.intercept({
@@ -179,7 +179,7 @@ describe('Aniview kicker optimization', () => {
     }
   });
 
-  it('step 8 - Apester - Update campaign allocation', { retries: { runMode: 2, } }, () => {
+  it('step 8 - Apester - Update campaign allocation', { retries: { runMode: 3, } }, () => {
     if (validAniviewResults) {
     // -------------------------------------------- Calculate the difference -------------------------------------------
       cy.task('getAllSavedValues').then((vals) => {
