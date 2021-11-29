@@ -16,7 +16,7 @@ const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering 
 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
 const percentageDIffAllowed = 20;
-let isValid = true;
+let validAniviewResults = true;
 
 describe('Aniview kicker optimization', () => {
   before(() => {
@@ -78,17 +78,17 @@ describe('Aniview kicker optimization', () => {
       const viewabilityWithSCFinal = Math.round(viewabilityWithSC);
       // Push results to "task" container
       cy.task('setWithSCRevenue', viewabilityWithSCFinal);
-      // eslint-disable-next-line use-isnan
-      if (viewabilityWithSCFinal === NaN || viewabilityWithSCFinal === null || viewabilityWithSCFinal === undefined) {
+      // eslint-disable-next-line use-isnan,no-restricted-globals
+      if (isNaN(viewabilityWithSCFinal) || viewabilityWithSCFinal === null || viewabilityWithSCFinal === undefined) {
         cy.task('log', 'ERROR: Fail to get aniview report, aborting cycle.');
-        isValid = false;
+        validAniviewResults = false;
       }
     });
   });
   // // ---------------------------------------------------------------------------------------------------------
 
   it('step 4 - Apester - Login', { retries: { runMode: 2, } }, () => {
-    if (isValid) {
+    if (validAniviewResults) {
       // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
       // cy.log(`is production ${isProduction}`);
       // cy.task('log', `is production? ${isProduction}`);
@@ -100,7 +100,7 @@ describe('Aniview kicker optimization', () => {
   const campaignId = '614b2ebb9b24bb000c77652b';
 
   it('step 5 - Apester - Get the campaign percentage split via API', { retries: { runMode: 2, } }, () => {
-    if (isValid) {
+    if (validAniviewResults) {
       // Get the response body (including the Alternative B percentage value)
       cy.intercept({
         method: 'GET',
@@ -132,7 +132,7 @@ describe('Aniview kicker optimization', () => {
   });
 
   it('step 6 - Apester - Revenue report before count (the alternative %) and round (to integer)', () => {
-    if (isValid) {
+    if (validAniviewResults) {
       cy.task('getAllSavedValues').then((vals) => {
         const NormaliseRevenueWithoutSC = (vals.NOSCRevenue / vals.alternativeA);
         const NormaliseRevWIthSC = (vals.withSCRevenue / vals.alternativeB);
@@ -157,7 +157,7 @@ describe('Aniview kicker optimization', () => {
   });
 
   it('step 7 - Apester - revenue count (alternative %) and round (to integer)', () => {
-    if (isValid) {
+    if (validAniviewResults) {
       // NOSCRevenue
       cy.task('getAllSavedValues').then((vals) => {
         const NOSCRevenueAfterCount = (vals.NOSCRevenue / vals.alternativeA);
@@ -180,7 +180,7 @@ describe('Aniview kicker optimization', () => {
   });
 
   it('step 8 - Apester - Update campaign allocation', { retries: { runMode: 2, } }, () => {
-    if (isValid) {
+    if (validAniviewResults) {
     // -------------------------------------------- Calculate the difference -------------------------------------------
       cy.task('getAllSavedValues').then((vals) => {
         const sum = vals.NOSCRevenueAfterCountAndRound + vals.withSCRevenueAfterCountAndRound; // sum of both numbers
@@ -192,9 +192,6 @@ describe('Aniview kicker optimization', () => {
         cy.task('log', `=myLog=: Percentage difference is: ${diffAsPercentageAfterRound}%`);
         // Push results to "task" container
         cy.task('setDiffAsPercentageAfterRound', diffAsPercentageAfterRound);
-
-        // cy.task('log', `=myLog= Sum: ${sum}`);
-        // cy.task('log', `=myLog= Diff: ${diff}`);
       });
       // -----------------------------------------------------------------------------------------------------------------
 
@@ -216,7 +213,8 @@ describe('Aniview kicker optimization', () => {
             .typeValue('#input_48', alternativeBUpdatedValue);
           // Scroll down and save the campaign
           cy.scrollToPosition(0, 5000)
-            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]'); // Click on save campaign
+            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+            .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
           //  Report
           const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is lower than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
@@ -237,7 +235,8 @@ describe('Aniview kicker optimization', () => {
             .typeValue('#input_48', alternativeBUpdatedValue);
           // Scroll down and save the campaign
           cy.scrollToPosition(0, 5000)
-            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]'); // Click on save campaign
+            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+            .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
           //  Report
           const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is higher than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
@@ -259,7 +258,8 @@ describe('Aniview kicker optimization', () => {
             .typeValue('#input_48', alternativeBUpdatedValue);
           // Scroll down and save the campaign
           cy.scrollToPosition(0, 5000)
-            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]'); // Click on save campaign
+            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+            .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
           //  Report
           const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is pretty equal to "with Smartclip revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
