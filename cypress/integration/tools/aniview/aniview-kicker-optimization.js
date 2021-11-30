@@ -28,23 +28,19 @@ describe('Aniview kicker optimization', () => {
   });
 
   it('Step 1 - Aniview - Login', { retries: { runMode: 3, } }, () => {
-    // cy.log(`Login to Aniview ${aniviewEmail} ${aniviewPass}`);
-    // cy.task('log', `Login to Aniview ${aniviewEmail} ${aniviewPass}`);
-
     cy
       .goto('https://manage.aniview.com/login?redirectTo=%2F&accessRedirect=true')
       .waitForVisibleElement('#id', 20000)
       .typeValue('#id', aniviewEmail)
       .typeValue('#password', aniviewPass)
-      .clickOn('button');
+      .clickOn('button')
+      .waitForVisibleElement(':nth-child(6) > a > .text', 70000);
     Cypress.Cookies.preserveOnce('token');
-
-    // cy.log('Logged into Aniview');
+    cy.log('Login to aniview was successful!');
   });
 
   it('Step 2 - Aniview - Navigate to the report', { retries: { runMode: 3, } }, () => {
     cy
-      .waitForVisibleElement(':nth-child(6) > a > .text', 70000)
       .clickOn(':nth-child(6) > a > .text') // Click on reports in the menu
       .typeValue('.sb-search-input', reportName).waitFor(3000) // Add value in the search field
       .clickOn('.icon-edit') // Click on edit report
