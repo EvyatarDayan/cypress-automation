@@ -16,8 +16,7 @@ const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering 
 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
 const percentageDIffAllowed = 20;
-let validAniviewResults = true;
-
+const isNullish = (val) => typeof val === 'null' || val === '' || typeof val === undefined;
 describe('Aniview kicker optimization', () => {
   before(() => {
     Cypress.Cookies.defaults({
@@ -62,214 +61,233 @@ describe('Aniview kicker optimization', () => {
 
   it('Step 3 - Aniview - Get the revenues', { retries: { runMode: 3, } }, () => {
     // Viewability with No SC
-    cy.get('body').find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').invoke('text').then((viewabilityWithNoSC) => {
-      cy.task('log', 'Got aniview report with Smartclip');
-
+    cy.get('body').find('.table > :nth-child(2) > :nth-last-child(2) > :nth-child(3)').invoke('text').then((noSCRevenue) => {
+      cy.task('log', 'Got aniview report without Smartclip');
+      const isRevenueValid = noSCRevenue !== '' && noSCRevenue !== null && !Number.isNaN(Number(noSCRevenue));
+      if (!isRevenueValid) {
+        cy.task('log', 'ERROR: Fail to get aniview report.');
+        return;
+      }
       // Remove decimal and round
-      const viewabilityWithNoSCFinal = Math.round(viewabilityWithNoSC);
+      const sanitizeNoSCRevenue = Number(noSCRevenue);
       // Push results to "task" container
-      cy.task('setNOSCRevenue', viewabilityWithNoSCFinal);
+      cy.task('setNOSCRevenue', sanitizeNoSCRevenue);
     });
 
     // Viewability with SC
-    cy.get('body').find('.table > :nth-child(2) > :nth-last-child(1) > :nth-child(3)').invoke('text').then((viewabilityWithSC) => {
-      cy.task('log', 'Got aniview report without smartclip');
-      // Remove decimal and round
-      const viewabilityWithSCFinal = Math.round(viewabilityWithSC);
-      // Push results to "task" container
-      cy.task('setWithSCRevenue', viewabilityWithSCFinal);
-      // eslint-disable-next-line use-isnan,no-restricted-globals
-      if (isNaN(viewabilityWithSCFinal) || viewabilityWithSCFinal === null || viewabilityWithSCFinal === undefined) {
-        cy.task('log', 'ERROR: Fail to get aniview report, aborting cycle.');
-        validAniviewResults = false;
+    cy.get('body').find('.table > :nth-child(2) > :nth-last-child(1) > :nth-child(3)').invoke('text').then((SCRevenue) => {
+      cy.task('log', 'Got aniview report with smartclip');
+      const isRevenueValid = SCRevenue !== '' && SCRevenue !== null && !Number.isNaN(Number(SCRevenue));
+      if (!isRevenueValid) {
+        cy.task('log', 'ERROR: Fail to get aniview report.');
+        return;
       }
+      // Remove decimal and round
+      const SCSanitizeRevnue = Number(SCRevenue);
+      // Push results to "task" container
+      cy.task('setWithSCRevenue', SCSanitizeRevnue);
     });
   });
   // // ---------------------------------------------------------------------------------------------------------
 
   it('step 4 - Apester - Login', { retries: { runMode: 3, } }, () => {
-    if (validAniviewResults) {
-      // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
-      // cy.log(`is production ${isProduction}`);
-      // cy.task('log', `is production? ${isProduction}`);
-      cy.task('log', `portal url ${Cypress.env('PORTAL_PUBLIC_URL')}`);
-      cy.loginWithNoUI(apesterAdminEmail, apesterAdminPassword);
-    }
+    // cy.log(`Login to Apester ${apesterAdminEmail} ${apesterAdminPassword}`);
+    // cy.log(`is production ${isProduction}`);
+    // cy.task('log', `is production? ${isProduction}`);
+    cy.task('log', `portal url ${Cypress.env('PORTAL_PUBLIC_URL')}`);
+    cy.loginWithNoUI(apesterAdminEmail, apesterAdminPassword);
   });
 
   const campaignId = '614b2ebb9b24bb000c77652b';
 
   it('step 5 - Apester - Get the campaign percentage split via API', { retries: { runMode: 3, } }, () => {
-    if (validAniviewResults) {
-      // Get the response body (including the Alternative B percentage value)
-      cy.intercept({
-        method: 'GET',
-        url: `campaigns/${campaignId}`,
-        hostname: `${Cypress.env('CAMPAIGN_PUBLIC_URL').replace('https://', '')}`,
-      }, (req) => {
-        req.alias = campaignId;
-        console.log(req.body);
-      });
+    // Get the response body (including the Alternative B percentage value)
+    cy.intercept({
+      method: 'GET',
+      url: `campaigns/${campaignId}`,
+      hostname: `${Cypress.env('CAMPAIGN_PUBLIC_URL').replace('https://', '')}`,
+    }, (req) => {
+      req.alias = campaignId;
+      console.log(req.body);
+    });
 
-      // Open the campaign editor
-      cy.goto(`${Cypress.env('CAMPAIGN_MANAGER_PUBLIC_URL')}/#/video-campaign/${campaignId}`)
-        .waitForVisibleElement('[model="collapsableUI.video"] > .header > .title', 20000).clickOn('[model="collapsableUI.video"] > .header > .title')
-        .waitFor(500)
-        .scrollToPosition(0, 300);
+    // Open the campaign editor
+    cy.goto(`${Cypress.env('CAMPAIGN_MANAGER_PUBLIC_URL')}/#/video-campaign/${campaignId}`)
+      .waitForVisibleElement('[model="collapsableUI.video"] > .header > .title', 20000).clickOn('[model="collapsableUI.video"] > .header > .title')
+      .waitFor(500)
+      .scrollToPosition(0, 300);
 
-      // Get the Alternative B percentage value
-      cy.wait(`@${campaignId}`).then((interception) => {
-        const altBValue = interception.response.body.payload.campaignOptions.videoOptions.players[0].alternativePlayers[0].percentage;
-        // Push results to "task" container
-        cy.task('setAlternativeB', altBValue);
+    // Get the Alternative B percentage value
+    cy.wait(`@${campaignId}`).then((interception) => {
+      const altBValue = interception.response.body.payload.campaignOptions.videoOptions.players[0].alternativePlayers[0].percentage;
+      // Push results to "task" container
+      cy.task('setAlternativeB', altBValue);
 
-        // Calculate Alternative A base on alternative B.
-        const altA = (100 - altBValue);
-        // Push results to "task" container
-        cy.task('setAlternativeA', altA);
-      });
-    }
+      // Calculate Alternative A base on alternative B.
+      const altA = (100 - altBValue);
+      // Push results to "task" container
+      cy.task('setAlternativeA', altA);
+    });
   });
 
   it('step 6 - Apester - Revenue report before count (the alternative %) and round (to integer)', () => {
-    if (validAniviewResults) {
-      cy.task('getAllSavedValues').then((vals) => {
-        const NormaliseRevenueWithoutSC = (vals.NOSCRevenue / vals.alternativeA);
-        const NormaliseRevWIthSC = (vals.withSCRevenue / vals.alternativeB);
+    cy.task('getAllSavedValues').then((vals) => {
+      const NormaliseRevenueWithoutSC = (vals.NOSCRevenue / vals.alternativeA);
+      const NormaliseRevWithSC = (vals.withSCRevenue / vals.alternativeB);
 
-        const inputsForCalculation = `=Calculation Logic= \n
+      const inputsForCalculation = `=Calculation Logic= \n
       NO Smartclip revenue is: ${vals.NOSCRevenue}
       WIth Smartclip revenue is: ${vals.withSCRevenue}
       Apester Campaign alternativeA(%) - without Smartclip is: ${vals.alternativeA}
       Apester Campaign alternativeB(%) - with Smartclip is: ${vals.alternativeB}
       Apester Normalised revenue without Smartclip: ${NormaliseRevenueWithoutSC}
-      Apester Normalised revenue with Smartclip: ${NormaliseRevWIthSC}
+      Apester Normalised revenue with Smartclip: ${NormaliseRevWithSC}
       \n=Calculation Logic End= \n\n`;
 
-        cy.writeFile(reportPath, `${inputsForCalculation}`, { flag: 'a+' });
+      cy.writeFile(reportPath, `${inputsForCalculation}`, { flag: 'a+' });
 
-        cy.task('log', `=myLog= NOSCRevenue is: ${JSON.stringify(vals.NOSCRevenue)}`);
-        cy.task('log', `=myLog= withSCRevenue is: ${JSON.stringify(vals.withSCRevenue)}`);
-        cy.task('log', `=myLog= alternativeA(%) is: ${JSON.stringify(vals.alternativeA)}`);
-        cy.task('log', `=myLog= alternativeB(%) is: ${JSON.stringify(vals.alternativeB)}`);
-      });
-    }
+      cy.task('setNormaliseRevenueWithoutSC', NormaliseRevenueWithoutSC); // NOSCRevenueAfterCountAndRound
+      cy.task('setNormaliseRevWithSC', NormaliseRevWithSC); // withSCRevenueAfterCountAndRound
+
+      cy.task('log', `=myLog= NOSCRevenue is: ${JSON.stringify(vals.NOSCRevenue)}`);
+      cy.task('log', `=myLog= withSCRevenue is: ${JSON.stringify(vals.withSCRevenue)}`);
+      cy.task('log', `=myLog= alternativeA(%) is: ${JSON.stringify(vals.alternativeA)}`);
+      cy.task('log', `=myLog= alternativeB(%) is: ${JSON.stringify(vals.alternativeB)}`);
+    });
   });
 
-  it('step 7 - Apester - revenue count (alternative %) and round (to integer)', () => {
-    if (validAniviewResults) {
-      // NOSCRevenue
-      cy.task('getAllSavedValues').then((vals) => {
-        const NOSCRevenueAfterCount = (vals.NOSCRevenue / vals.alternativeA);
-        const NOSCRevenueAfterCountAndRound = Math.round(NOSCRevenueAfterCount);
-        // cy.log(`=myLog= NOSCRevenue after count and round: ${NOSCRevenueAfterCountAndRound}`);
-        // Push results to "task" container
-        cy.task('setNOSCRevenueAfterCountAndRound', NOSCRevenueAfterCountAndRound); // NOSCRevenueAfterCountAndRound
-      });
+  // it('step 7 - Apester - revenue count (alternative %) and round (to integer)', () => {
+  //   // NOSCRevenue
+  //   cy.task('getAllSavedValues').then((vals) => {
+  //     const NOSCRevenueAfterCount = (vals.NOSCRevenue / vals.alternativeA);
+  //     const NOSCRevenueAfterCountAndRound = Number(NOSCRevenueAfterCount);
+  //     // cy.log(`=myLog= NOSCRevenue after count and round: ${NOSCRevenueAfterCountAndRound}`);
+  //     // Push results to "task" container
+  //     cy.task('setNOSCRevenueAfterCountAndRound', NOSCRevenueAfterCountAndRound); // NOSCRevenueAfterCountAndRound
+  //   });
 
-      // withSCRevenue
-      cy.task('getAllSavedValues').then((vals) => {
-        const withSCRevenueAfterCount = (vals.withSCRevenue / vals.alternativeB);
-        const withSCRevenueAfterCountAndRound = Math.round(withSCRevenueAfterCount);
-        cy.task('log', `=myLog= withSCRevenue after count and round: ${withSCRevenueAfterCountAndRound}`);
+  //   // withSCRevenue
+  //   cy.task('getAllSavedValues').then((vals) => {
+  //     const withSCRevenueAfterCount = (vals.withSCRevenue / vals.alternativeB);
+  //     const withSCRevenueAfterCountAndRound = Math.round(withSCRevenueAfterCount);
+  //     cy.task('log', `=myLog= withSCRevenue after count and round: ${withSCRevenueAfterCountAndRound}`);
 
-        // Push results to "task" container
-        cy.task('setwithSCRevenueAfterCountAndRound', withSCRevenueAfterCountAndRound); // withSCRevenueAfterCountAndRound
-      });
-    }
-  });
+  //     // Push results to "task" container
+  //     cy.task('setwithSCRevenueAfterCountAndRound', withSCRevenueAfterCountAndRound); // withSCRevenueAfterCountAndRound
+  //   });
+  // });
 
-  it('step 8 - Apester - Update campaign allocation', { retries: { runMode: 3, } }, () => {
-    if (validAniviewResults) {
+  it('step 7 - Apester - Update campaign allocation', { retries: { runMode: 3, } }, () => {
     // -------------------------------------------- Calculate the difference -------------------------------------------
-      cy.task('getAllSavedValues').then((vals) => {
-        const sum = vals.NOSCRevenueAfterCountAndRound + vals.withSCRevenueAfterCountAndRound; // sum of both numbers
-        const diff = Math.abs(vals.NOSCRevenueAfterCountAndRound - vals.withSCRevenueAfterCountAndRound); // absolute difference between both numbers
+    cy.task('getAllSavedValues').then((vals) => {
+      const sum = vals.normaliseRevenueWithoutSC + vals.normaliseRevWithSC; // sum of both numbers
+      const diff = Math.abs(vals.normaliseRevenueWithoutSC - vals.normaliseRevWithSC); // absolute difference between both numbers
 
-        // eslint-disable-next-line no-mixed-operators
-        const diffAsPercentage = diff * 100 / sum;
-        const diffAsPercentageAfterRound = Math.round(diffAsPercentage); // Round the decimal number to integer
-        cy.task('log', `=myLog=: Percentage difference is: ${diffAsPercentageAfterRound}%`);
-        // Push results to "task" container
-        cy.task('setDiffAsPercentageAfterRound', diffAsPercentageAfterRound);
-      });
-      // -----------------------------------------------------------------------------------------------------------------
+      // eslint-disable-next-line no-mixed-operators
+      const diffAsPercentage = diff * 100 / sum;
+      const diffAsPercentageAfterRound = Math.round(diffAsPercentage); // Round the decimal number to integer
+      cy.task('log', `=myLog=: Percentage difference is: ${diffAsPercentageAfterRound}%`);
+      // Push results to "task" container
+      cy.task('setDiffAsPercentageAfterRound', diffAsPercentageAfterRound);
+    });
+    // -----------------------------------------------------------------------------------------------------------------
 
-      cy.task('getAllSavedValues').then((vals) => {
+    cy.task('getAllSavedValues').then(({
+      NOSCRevenue,
+      withSCRevenue,
+      alternativeA,
+      alternativeB,
+      normaliseRevWithSC,
+      normaliseRevenueWithoutSC,
+      diffAsPercentageAfterRound
+    } = {}) => {
+      const isInvalid = isNullish(NOSCRevenue)
+      || isNullish(withSCRevenue)
+      || isNullish(alternativeA)
+      || isNullish(alternativeB)
+      || isNullish(normaliseRevWithSC)
+      || isNullish(normaliseRevenueWithoutSC)
+      || isNullish(diffAsPercentageAfterRound)
+      || isNullish(NOSCRevenue) || isNullish(withSCRevenue) || isNullish(withSCRevenue);
+
+      cy.writeFile(reportPath, '\n==== Decision ===\n', { flag: 'a+' });
+
+      if (isInvalid) {
+        cy.writeFile(reportPath, 'Issue with one of the report values, aborting..', { flag: 'a+' });
+        return;
+      }
       // -------------------------------------------- Case 1 -----------------------------------------------------------
       // When "NOSCRevenue" is lower than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
-        const { NOSCRevenueAfterCountAndRound, withSCRevenueAfterCountAndRound } = vals;
-        cy.task('log', `=myLog=: NOSCRevenue (before count and round): ${vals.NOSCRevenue}`);
-        cy.task('log', `=myLog=: withSCRevenue (before count and round): ${vals.withSCRevenue}`);
-        cy.task('log', `=myLog=: alternativeA: ${vals.alternativeA}`);
-        cy.task('log', `=myLog=: alternativeB: ${vals.alternativeB}`);
-        cy.task('log', `=myLog=: NOSCRevenueAfterCountAndRound: ${NOSCRevenueAfterCountAndRound}`);
-        cy.task('log', `=myLog=: withSCRevenueAfterCountAndRound: ${withSCRevenueAfterCountAndRound}`);
-        if (vals.NOSCRevenueAfterCountAndRound < vals.withSCRevenueAfterCountAndRound && vals.diffAsPercentageAfterRound > percentageDIffAllowed) {
-          const alternativeBUpdatedValue = 90;
-          cy.task('log', '=myLog=: Using case 1');
-          // Update alternativeB% value
-          cy.clearValue('#input_48')
-            .typeValue('#input_48', alternativeBUpdatedValue);
-          // Scroll down and save the campaign
-          cy.scrollToPosition(0, 5000)
-            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-            .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+      cy.task('log', `=myLog=: NOSCRevenue : ${NOSCRevenue}`);
+      cy.task('log', `=myLog=: withSCRevenue : ${withSCRevenue}`);
+      cy.task('log', `=myLog=: alternativeA: ${alternativeA}`);
+      cy.task('log', `=myLog=: alternativeB: ${alternativeB}`);
+      cy.task('log', `=myLog=: Normielized revnue without Smartclip: ${normaliseRevenueWithoutSC}`);
+      cy.task('log', `=myLog=:  Normielized revnue with Smartclip: ${normaliseRevWithSC}`);
+      if (normaliseRevenueWithoutSC < normaliseRevWithSC && diffAsPercentageAfterRound > percentageDIffAllowed) {
+        const alternativeBUpdatedValue = 90;
+        cy.task('log', '=myLog=: Using case 1');
+        // Update alternativeB% value
+        cy.clearValue('#input_48')
+          .typeValue('#input_48', alternativeBUpdatedValue);
+        // Scroll down and save the campaign
+        cy.scrollToPosition(0, 5000)
+          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
-          //  Report
-          const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is lower than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-          const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${vals.diffAsPercentageAfterRound}%`;
-          cy.writeFile(reportPath, `\n==== Decision ===\n${latestResults}`, { flag: 'a+' });
-          cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
-          cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
+        //  Report
+        const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is lower than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${diffAsPercentageAfterRound}%`;
+        cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
+        cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
 
-          cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
 
-          // -------------------------------------------- Case 2 -----------------------------------------------------------
-          // When "NOSCRevenue" is higher than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
-        } else if (vals.NOSCRevenueAfterCountAndRound > vals.withSCRevenueAfterCountAndRound && vals.diffAsPercentageAfterRound > percentageDIffAllowed) {
-          const alternativeBUpdatedValue = 10;
-          cy.task('log', '=myLog=: Using case 2');
-          // Update alternativeB% value
-          cy.clearValue('#input_48')
-            .typeValue('#input_48', alternativeBUpdatedValue);
-          // Scroll down and save the campaign
-          cy.scrollToPosition(0, 5000)
-            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-            .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+        // -------------------------------------------- Case 2 -----------------------------------------------------------
+        // When "NOSCRevenue" is higher than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
+      } else if (normaliseRevenueWithoutSC > normaliseRevWithSC && diffAsPercentageAfterRound > percentageDIffAllowed) {
+        const alternativeBUpdatedValue = 10;
+        cy.task('log', '=myLog=: Using case 2');
+        // Update alternativeB% value
+        cy.clearValue('#input_48')
+          .typeValue('#input_48', alternativeBUpdatedValue);
+        // Scroll down and save the campaign
+        cy.scrollToPosition(0, 5000)
+          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
-          //  Report
-          const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is higher than "with SC Revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-          const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${vals.diffAsPercentageAfterRound}%`;
-          cy.writeFile(reportPath, `\n==== Decision ===\n${latestResults}`, { flag: 'a+' });
-          cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
-          cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
-          cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
+        //  Report
+        const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is higher than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${diffAsPercentageAfterRound}%`;
+        cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
+        cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
         // eslint-disable-next-line brace-style
-        }
+      }
 
-        // -------------------------------------------- Case 3 -----------------------------------------------------------
-        // When "diffAsPercentageAfterRound" is lower or equal to "percentageDIffAllowed"
-        else if (vals.diffAsPercentageAfterRound <= percentageDIffAllowed) {
-          const alternativeBUpdatedValue = 50;
-          cy.task('log', '=myLog=: Using case 3');
-          // Update alternativeB% value
-          cy.clearValue('#input_48')
-            .typeValue('#input_48', alternativeBUpdatedValue);
-          // Scroll down and save the campaign
-          cy.scrollToPosition(0, 5000)
-            .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-            .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+      // -------------------------------------------- Case 3 -----------------------------------------------------------
+      // When "diffAsPercentageAfterRound" is lower or equal to "percentageDIffAllowed"
+      else if (diffAsPercentageAfterRound <= percentageDIffAllowed) {
+        const alternativeBUpdatedValue = 50;
+        cy.task('log', '=myLog=: Using case 3');
+        // Update alternativeB% value
+        cy.clearValue('#input_48')
+          .typeValue('#input_48', alternativeBUpdatedValue);
+        // Scroll down and save the campaign
+        cy.scrollToPosition(0, 5000)
+          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
-          //  Report
-          const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${vals.NOSCRevenueAfterCountAndRound}) is pretty equal to "with Smartclip revenue" (${vals.withSCRevenueAfterCountAndRound}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-          const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${vals.diffAsPercentageAfterRound}%`;
-          // cy.log(latestResults);
-          cy.writeFile(reportPath, `\n==== Decision ===\n${latestResults}`, { flag: 'a+' });
-          cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
-          cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
-        }
-      });
-    }
+        //  Report
+        const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${normaliseRevenueWithoutSC}) is pretty equal to "with Smartclip revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${diffAsPercentageAfterRound}%`;
+        // cy.log(latestResults);
+        cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
+        cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
+      }
+    });
   });
 });
