@@ -206,7 +206,7 @@ describe('Aniview kicker optimization', () => {
       || isNullish(diffAsPercentageAfterRound)
       || isNullish(NOSCRevenue) || isNullish(withSCRevenue) || isNullish(withSCRevenue);
 
-      cy.writeFile(reportPath, '\n==== Decision ===\n', { flag: 'a+' });
+      cy.writeFile(reportPath, '\n==== Decision (Virtual, no real change) ===\n', { flag: 'a+' });
 
       if (isInvalid) {
         cy.writeFile(reportPath, 'Issue with one of the report values, aborting..', { flag: 'a+' });
@@ -224,12 +224,12 @@ describe('Aniview kicker optimization', () => {
         const alternativeBUpdatedValue = 90;
         cy.task('log', '=myLog=: Using case 1');
         // Update alternativeB% value
-        cy.clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
-        // Scroll down and save the campaign
-        cy.scrollToPosition(0, 5000)
-          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+        // cy.clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
+        // // Scroll down and save the campaign
+        // cy.scrollToPosition(0, 5000)
+        //   .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+        //   .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is lower than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
@@ -246,12 +246,12 @@ describe('Aniview kicker optimization', () => {
         const alternativeBUpdatedValue = 10;
         cy.task('log', '=myLog=: Using case 2');
         // Update alternativeB% value
-        cy.clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
-        // Scroll down and save the campaign
-        cy.scrollToPosition(0, 5000)
-          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+        // cy.clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
+        // // Scroll down and save the campaign
+        // cy.scrollToPosition(0, 5000)
+        //   .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+        //   .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is higher than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
@@ -269,12 +269,12 @@ describe('Aniview kicker optimization', () => {
         const alternativeBUpdatedValue = 50;
         cy.task('log', '=myLog=: Using case 3');
         // Update alternativeB% value
-        cy.clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
-        // Scroll down and save the campaign
-        cy.scrollToPosition(0, 5000)
-          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+        // cy.clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
+        // // Scroll down and save the campaign
+        // cy.scrollToPosition(0, 5000)
+        //   .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+        //   .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${normaliseRevenueWithoutSC}) is pretty equal to "with Smartclip revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
