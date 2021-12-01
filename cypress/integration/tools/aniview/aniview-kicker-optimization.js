@@ -233,7 +233,7 @@ describe('Aniview kicker optimization', () => {
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is lower than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        const PercentageDiffForLog = `${currentDateForReport}: [INFO] SC is perfroming ${precentageDiffBetweenSCandNoSC}% better than without SC.\n`;
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] SC is perfroming ${Math.abs(precentageDiffBetweenSCandNoSC) - 100}% better than without SC.\n`;
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
         cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
@@ -255,7 +255,7 @@ describe('Aniview kicker optimization', () => {
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is higher than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        const PercentageDiffForLog = `${currentDateForReport}: [INFO] SC is perfroming ${precentageDiffBetweenSCandNoSC}% worse than without SC.\n`;
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] SC is perfroming ${100 - Math.abs(precentageDiffBetweenSCandNoSC)}% worse than without SC.\n`;
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
         cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
         cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
@@ -279,7 +279,7 @@ describe('Aniview kicker optimization', () => {
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${normaliseRevenueWithoutSC}) is pretty equal to "with Smartclip revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%\n`;
-        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between Smartclip and no Smartclip is ${precentageDiffBetweenSCandNoSC}%\n`;
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between Smartclip and no Smartclip is ${100 - Math.abs(precentageDiffBetweenSCandNoSC)}%\n`;
         // cy.log(latestResults);
         cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
