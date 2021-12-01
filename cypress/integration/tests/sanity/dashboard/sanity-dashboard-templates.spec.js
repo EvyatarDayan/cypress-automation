@@ -44,7 +44,12 @@ describe('Templates', () => {
     // Tags title
       .textContains(':nth-child(1) > .template-card > .template-card__header > .template-card__header-layout > .tags-container > a > .tag', '#holidays')
     // Template description
-      .textContains(':nth-child(1) > .template-card > .template-card__body > .template-card__description > .LinesEllipsis', 'Put the kettle on, it’s going to get cozy!');
+      .textContains(':nth-child(1) > .template-card > .template-card__body > .template-card__description > .LinesEllipsis', 'Put the kettle on, it’s going to get cozy!')
+    // Click on the first template preview
+      .clickOn('[href="/en/all/holidays/winter-mood:-on"] > span')
+      .waitFor(500)
+    // Click on close preview button
+      .clickOn('#home-close-button > .ic');
 
     // Click on edit
     // Click on preview
