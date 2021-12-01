@@ -260,7 +260,6 @@ describe('Aniview kicker optimization', () => {
         const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${precentageDiffBetweenSCandNoSC}%`;
         cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
-        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
         cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
         // eslint-disable-next-line brace-style
       }
