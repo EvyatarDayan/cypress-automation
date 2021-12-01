@@ -7,6 +7,6 @@ chmod 400 ~/.ssh/id_rsa
 cd /app
 # git checkout -f master
 git pull
-spawn-fcgi -s /var/run/fcgiwrap.socket /usr/sbin/fcgiwrap && chown www-data /var/run/fcgiwrap.socket && nginx -g "daemon off;"
+spawn-fcgi -s /var/run/fcgiwrap.socket /app/fcgiWrapper.sh && chown www-data /var/run/fcgiwrap.socket && nginx -g "daemon off;"
 #nginx -g "daemon off;"
 fusermount -u /usr/share/nginx/reports

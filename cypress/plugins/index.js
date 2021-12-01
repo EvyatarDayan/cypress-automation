@@ -42,8 +42,8 @@ let NOSCRevenue;
 let withSCRevenue;
 let alternativeA;
 let alternativeB;
-let withSCRevenueAfterCountAndRound;
-let NOSCRevenueAfterCountAndRound;
+let normaliseRevWithSC;
+let normaliseRevenueWithoutSC;
 let diffAsPercentageAfterRound;
 
 module.exports = (on, config) => {
@@ -60,22 +60,27 @@ module.exports = (on, config) => {
     setAlternativeB: (val) => (alternativeB = val),
     getAlternativeB: () => alternativeB,
 
-    setwithSCRevenueAfterCountAndRound: (val) => (withSCRevenueAfterCountAndRound = val),
-    getwithSCRevenueAfterCountAndRound: () => withSCRevenueAfterCountAndRound,
+    setNormaliseRevWithSC: (val) => (normaliseRevWithSC = val),
+    getNormaliseRevWithSC: () => normaliseRevWithSC,
 
-    setNOSCRevenueAfterCountAndRound: (val) => (NOSCRevenueAfterCountAndRound = val),
-    getNOSCRevenueAfterCountAndRound: () => NOSCRevenueAfterCountAndRound,
+    setNormaliseRevenueWithoutSC: (val) => (normaliseRevenueWithoutSC = val),
+    getNormaliseRevenueWithoutSC: () => normaliseRevenueWithoutSC,
 
     setDiffAsPercentageAfterRound: (val) => (diffAsPercentageAfterRound = val),
     getDiffAsPercentageAfterRound: () => diffAsPercentageAfterRound,
 
-    getAllSavedValues: () => ({ NOSCRevenue,
+    getAllSavedValues: () => ({
+      NOSCRevenue,
       withSCRevenue,
       alternativeA,
       alternativeB,
-      withSCRevenueAfterCountAndRound,
-      NOSCRevenueAfterCountAndRound,
+      normaliseRevWithSC,
+      normaliseRevenueWithoutSC,
       diffAsPercentageAfterRound
-    })
+    }),
+    log(message) {
+      console.log(message);
+      return null;
+    }
   });
 };

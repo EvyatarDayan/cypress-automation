@@ -42,6 +42,7 @@ declare namespace Cypress {
         dragAndDropByXpath(a: string, b: string)
         dragAndDropByPixelsByXpath(a: string, b: number, c: number)
         loginToPortal(a: string, b: string): Chainable
+        loginWithNoUI(a: string, b: string): Chainable
         preserveCookie(a: string): Chainable
 
         // events
