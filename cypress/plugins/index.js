@@ -44,7 +44,7 @@ let alternativeA;
 let alternativeB;
 let normaliseRevWithSC;
 let normaliseRevenueWithoutSC;
-let diffAsPercentageAfterRound;
+let precentageDiffBetweenSCandNoSC;
 
 module.exports = (on, config) => {
   on('task', {
@@ -66,8 +66,8 @@ module.exports = (on, config) => {
     setNormaliseRevenueWithoutSC: (val) => (normaliseRevenueWithoutSC = val),
     getNormaliseRevenueWithoutSC: () => normaliseRevenueWithoutSC,
 
-    setDiffAsPercentageAfterRound: (val) => (diffAsPercentageAfterRound = val),
-    getDiffAsPercentageAfterRound: () => diffAsPercentageAfterRound,
+    setPrecentageDiffBetweenSCandNoSC: (val) => (precentageDiffBetweenSCandNoSC = val),
+    getPrecentageDiffBetweenSCandNoSC: () => precentageDiffBetweenSCandNoSC,
 
     getAllSavedValues: () => ({
       NOSCRevenue,
@@ -76,7 +76,7 @@ module.exports = (on, config) => {
       alternativeB,
       normaliseRevWithSC,
       normaliseRevenueWithoutSC,
-      diffAsPercentageAfterRound
+      precentageDiffBetweenSCandNoSC
     }),
     log(message) {
       console.log(message);
