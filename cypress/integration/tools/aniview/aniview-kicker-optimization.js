@@ -15,8 +15,8 @@ const currentDateForReport = (new Date()).toLocaleDateString('en-GB', { year: 'n
 const selectedTime = dayjs().format('HH') - 4; // Current time - 4 (considering time difference)
 
 const timeframe = `${currentDate} ${selectedTime}:00 - ${currentDate} ${selectedTime}:00`;
-const percentageDIffAllowed = 20;
-const isNullish = (val) => typeof val === 'null' || val === '' || typeof val === undefined;
+const percentageDIffAllowed = 10;
+const isNullish = (val) => typeof val === 'null' || val === '' || typeof val === 'undefined';
 describe('Aniview kicker optimization', () => {
   before(() => {
     Cypress.Cookies.defaults({
@@ -175,16 +175,14 @@ describe('Aniview kicker optimization', () => {
 
   it('step 7 - Apester - Update campaign allocation', { retries: { runMode: 3, } }, () => {
     // -------------------------------------------- Calculate the difference -------------------------------------------
-    cy.task('getAllSavedValues').then((vals) => {
-      const sum = vals.normaliseRevenueWithoutSC + vals.normaliseRevWithSC; // sum of both numbers
-      const diff = Math.abs(vals.normaliseRevenueWithoutSC - vals.normaliseRevWithSC); // absolute difference between both numbers
+    cy.task('getAllSavedValues').then(({ normaliseRevWithSC, normaliseRevenueWithoutSC }) => {
+      // const sum = vals.normaliseRevenueWithoutSC + vals.normaliseRevWithSC; // sum of both numbers
+      // const diff = Math.abs(vals.normaliseRevenueWithoutSC - vals.normaliseRevWithSC); // absolute difference between both numbers
+      const precentageDiffBetweenSCandNoSC = Math.round(((normaliseRevWithSC / normaliseRevenueWithoutSC) - 1) * 100);
 
-      // eslint-disable-next-line no-mixed-operators
-      const diffAsPercentage = diff * 100 / sum;
-      const diffAsPercentageAfterRound = Math.round(diffAsPercentage); // Round the decimal number to integer
-      cy.task('log', `=myLog=: Percentage difference is: ${diffAsPercentageAfterRound}%`);
+      cy.task('log', `=myLog=: Percentage difference is: ${precentageDiffBetweenSCandNoSC}%`);
       // Push results to "task" container
-      cy.task('setDiffAsPercentageAfterRound', diffAsPercentageAfterRound);
+      cy.task('setPrecentageDiffBetweenSCandNoSC', precentageDiffBetweenSCandNoSC);
     });
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -195,7 +193,7 @@ describe('Aniview kicker optimization', () => {
       alternativeB,
       normaliseRevWithSC,
       normaliseRevenueWithoutSC,
-      diffAsPercentageAfterRound
+      precentageDiffBetweenSCandNoSC
     } = {}) => {
       const isInvalid = isNullish(NOSCRevenue)
       || isNullish(withSCRevenue)
@@ -203,10 +201,10 @@ describe('Aniview kicker optimization', () => {
       || isNullish(alternativeB)
       || isNullish(normaliseRevWithSC)
       || isNullish(normaliseRevenueWithoutSC)
-      || isNullish(diffAsPercentageAfterRound)
+      || isNullish(precentageDiffBetweenSCandNoSC)
       || isNullish(NOSCRevenue) || isNullish(withSCRevenue) || isNullish(withSCRevenue);
 
-      cy.writeFile(reportPath, '\n==== Decision ===\n', { flag: 'a+' });
+      cy.writeFile(reportPath, '\n==== Decision (Virtual, no real change) ===\n', { flag: 'a+' });
 
       if (isInvalid) {
         cy.writeFile(reportPath, 'Issue with one of the report values, aborting..', { flag: 'a+' });
@@ -220,65 +218,68 @@ describe('Aniview kicker optimization', () => {
       cy.task('log', `=myLog=: alternativeB: ${alternativeB}`);
       cy.task('log', `=myLog=: Normielized revnue without Smartclip: ${normaliseRevenueWithoutSC}`);
       cy.task('log', `=myLog=:  Normielized revnue with Smartclip: ${normaliseRevWithSC}`);
-      if (normaliseRevenueWithoutSC < normaliseRevWithSC && diffAsPercentageAfterRound > percentageDIffAllowed) {
+      if (precentageDiffBetweenSCandNoSC > (100 + percentageDIffAllowed)) {
+        // SC is better.
+
         const alternativeBUpdatedValue = 90;
         cy.task('log', '=myLog=: Using case 1');
         // Update alternativeB% value
-        cy.clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
-        // Scroll down and save the campaign
-        cy.scrollToPosition(0, 5000)
-          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+        // cy.clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
+        // // Scroll down and save the campaign
+        // cy.scrollToPosition(0, 5000)
+        //   .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+        //   .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is lower than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${diffAsPercentageAfterRound}%`;
-        cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] SC is perfroming ${Math.abs(precentageDiffBetweenSCandNoSC) - 100}% better than without SC.\n`;
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
-        cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
-
         cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
+        cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
 
         // -------------------------------------------- Case 2 -----------------------------------------------------------
         // When "NOSCRevenue" is higher than "withSCRevenue" and difference between both is higher than percentageDIffAllowed (20%)
-      } else if (normaliseRevenueWithoutSC > normaliseRevWithSC && diffAsPercentageAfterRound > percentageDIffAllowed) {
+      } else if (precentageDiffBetweenSCandNoSC < (100 - percentageDIffAllowed)) {
+        // No SC is better
+
         const alternativeBUpdatedValue = 10;
         cy.task('log', '=myLog=: Using case 2');
         // Update alternativeB% value
-        cy.clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
-        // Scroll down and save the campaign
-        cy.scrollToPosition(0, 5000)
-          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+        // cy.clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
+        // // Scroll down and save the campaign
+        // cy.scrollToPosition(0, 5000)
+        //   .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+        //   .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
         //  Report
         const latestResults = `${currentDateForReport}: [INFO] "NO SC Revenue" (${normaliseRevenueWithoutSC}) is higher than "with SC Revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${diffAsPercentageAfterRound}%`;
-        cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] SC is perfroming ${100 - Math.abs(precentageDiffBetweenSCandNoSC)}% worse than without SC.\n`;
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
-        cy.writeFile(reportPath, `\n${latestResults}`, { flag: 'a+' });
+        cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
         cy.task('log', `=myLog=: saving file to path  - ${reportPath}`);
         // eslint-disable-next-line brace-style
       }
 
       // -------------------------------------------- Case 3 -----------------------------------------------------------
       // When "diffAsPercentageAfterRound" is lower or equal to "percentageDIffAllowed"
-      else if (diffAsPercentageAfterRound <= percentageDIffAllowed) {
+      else if ((precentageDiffBetweenSCandNoSC - 100) <= percentageDIffAllowed) {
+        // SC and no SC is equal
+
         const alternativeBUpdatedValue = 50;
         cy.task('log', '=myLog=: Using case 3');
         // Update alternativeB% value
-        cy.clearValue('#input_48')
-          .typeValue('#input_48', alternativeBUpdatedValue);
-        // Scroll down and save the campaign
-        cy.scrollToPosition(0, 5000)
-          .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
-          .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
+        // cy.clearValue('#input_48')
+        //   .typeValue('#input_48', alternativeBUpdatedValue);
+        // // Scroll down and save the campaign
+        // cy.scrollToPosition(0, 5000)
+        //   .clickOn('[ng-disabled="form.$invalid || (!onlyBottomEnabled && invalidNoYieldStrategy)"]') // Click on save campaign
+        //   .waitForVisibleElement('[ng-if=success]', 10000); // Validate success message
 
         //  Report
-        const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${normaliseRevenueWithoutSC}) is pretty equal to "with Smartclip revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%`;
-        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between the channels is ${diffAsPercentageAfterRound}%`;
+        const latestResults = `${currentDateForReport}: [INFO] "Without Smartclip Revenue" (${normaliseRevenueWithoutSC}) is pretty equal to "with Smartclip revenue" (${normaliseRevWithSC}) -> Alternative B updated to: ${alternativeBUpdatedValue}%\n`;
+        const PercentageDiffForLog = `${currentDateForReport}: [INFO] Revenue difference between Smartclip and no Smartclip is ${100 - Math.abs(precentageDiffBetweenSCandNoSC)}%\n`;
         // cy.log(latestResults);
         cy.writeFile(reportPath, `${latestResults}`, { flag: 'a+' });
         cy.writeFile(reportPath, `\n${PercentageDiffForLog}`, { flag: 'a+' });
