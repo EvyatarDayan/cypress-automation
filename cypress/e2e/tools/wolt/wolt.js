@@ -6,7 +6,7 @@ const numberOfTimes = 100;
 const refreshInterval = 20000;
 const placeClosedLabel = '.VenueStickyHeader-module__right___AMg3W > div > .CheckoutButton-module__offlineButton___Y91IQ > span';
 const urlToCheck = woltRes.urls.Lila;
-const successSound = woltRes.sounds.dua;
+const successSound = woltRes.sounds.theWeekend;
 // eslint-disable-next-line import/order
 const dayjs = require('dayjs');
 
