@@ -18,14 +18,14 @@
     "html-template": "^1.2.2",
     "http-server": "^13.0.2",
     "kuker-emitters": "^6.7.4",
-    "mochawesome": "^6.3.1",
+    "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^5.2.0",
     "randomstring": "^1.2.1"
   },
   "devDependencies": {
     "@4tw/cypress-drag-drop": "^1.6.0",
-    "cypress": "^9.0.0",
+    "cypress": "^10.3.0",
     "eslint": "^8.1.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-chai-friendly": "^0.7.2",

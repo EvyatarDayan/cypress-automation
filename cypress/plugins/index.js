@@ -38,46 +38,26 @@ module.exports = (on) => {
   require('cypress-terminal-report/src/installLogsPrinter')(on);
 };
 
-let NOSCRevenue;
-let withSCRevenue;
-let alternativeA;
-let alternativeB;
-let normaliseRevWithSC;
-let normaliseRevenueWithoutSC;
-let precentageDiffBetweenSCandNoSC;
+let timer;
+let position;
 
+// eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
   on('task', {
-    setNOSCRevenue: (val) => (NOSCRevenue = val),
-    getNOSCRevenue: () => NOSCRevenue,
 
-    setWithSCRevenue: (val) => (withSCRevenue = val),
-    getWithSCRevenue: () => withSCRevenue,
+    // eslint-disable-next-line no-return-assign
+    setTimer: (val) => (timer = val),
+    getTimer: () => timer,
 
-    setAlternativeA: (val) => (alternativeA = val),
-    getAlternativeA: () => alternativeA,
-
-    setAlternativeB: (val) => (alternativeB = val),
-    getAlternativeB: () => alternativeB,
-
-    setNormaliseRevWithSC: (val) => (normaliseRevWithSC = val),
-    getNormaliseRevWithSC: () => normaliseRevWithSC,
-
-    setNormaliseRevenueWithoutSC: (val) => (normaliseRevenueWithoutSC = val),
-    getNormaliseRevenueWithoutSC: () => normaliseRevenueWithoutSC,
-
-    setPrecentageDiffBetweenSCandNoSC: (val) => (precentageDiffBetweenSCandNoSC = val),
-    getPrecentageDiffBetweenSCandNoSC: () => precentageDiffBetweenSCandNoSC,
+    // eslint-disable-next-line no-return-assign
+    setPosition: (val) => (position = val),
+    getPosition: () => position,
 
     getAllSavedValues: () => ({
-      NOSCRevenue,
-      withSCRevenue,
-      alternativeA,
-      alternativeB,
-      normaliseRevWithSC,
-      normaliseRevenueWithoutSC,
-      precentageDiffBetweenSCandNoSC
+      timer,
+      position,
     }),
+
     log(message) {
       console.log(message);
       return null;
