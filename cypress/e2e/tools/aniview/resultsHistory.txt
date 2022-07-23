@@ -1,0 +1,48 @@
+----------------------------------------------------- REPORT -----------------------------------------------------
+
+03/11/2021 10:48: [INFO] "NO SC Revenue" (320) is lower than "with SC Revenue" (500) - Alternative B updated to: 90%
+03/11/2021 11:11: [INFO] "NO SC Revenue" (380) is pretty equal to "with SC Revenue" (360) -> Alternative B updated to: 50%
+03/11/2021 11:11: [INFO] Revenue difference between the channels is 3
+03/11/2021 11:16: [INFO] "NO SC Revenue" (380) is pretty equal to "with SC Revenue" (360) -> Alternative B updated to: 50%
+03/11/2021 11:16: [INFO] Revenue difference between the channels is 3%
+03/11/2021 11:22: [INFO] "NO SC Revenue" (42) is pretty equal to "with SC Revenue" (51) -> Alternative B updated to: 50%
+03/11/2021 11:22: [INFO] Revenue difference between the channels is 10%
+03/11/2021 11:23: [INFO] "NO SC Revenue" (51) is pretty equal to "with SC Revenue" (42) -> Alternative B updated to: 50%
+03/11/2021 11:23: [INFO] Revenue difference between the channels is 10%
+
+03/11/2021 14:31: [INFO] "NO SC Revenue" (51) is pretty equal to "with SC Revenue" (42) -> Alternative B updated to: 50%
+03/11/2021 14:31: [INFO] Revenue difference between the channels is 10%
+03/11/2021 14:55: [INFO] "NO SC Revenue" (51) is pretty equal to "with SC Revenue" (42) -> Alternative B updated to: 50%
+03/11/2021 14:55: [INFO] Revenue difference between the channels is 10%
+03/11/2021 14:56: [INFO] "NO SC Revenue" (51) is pretty equal to "with SC Revenue" (42) -> Alternative B updated to: 50%
+03/11/2021 14:56: [INFO] Revenue difference between the channels is 10%
+03/11/2021 14:58: [INFO] "NO SC Revenue" (51) is pretty equal to "with SC Revenue" (42) -> Alternative B updated to: 50%
+03/11/2021 14:58: [INFO] Revenue difference between the channels is 10%
+03/11/2021 15:00: [INFO] "NO SC Revenue" (151) is higher than "with SC Revenue" (22) -> Alternative B updated to: 10%
+03/11/2021 21:41: [INFO] "NO SC Revenue" (151) is higher than "with SC Revenue" (22) -> Alternative B updated to: 10%
+03/11/2021 21:51: [INFO] "NO SC Revenue" (151) is higher than "with SC Revenue" (22) -> Alternative B updated to: 10%
+03/11/2021 22:02: [INFO] "NO SC Revenue" (230) is pretty equal to "with SC Revenue" (210) -> Alternative B updated to: 50%
+03/11/2021 22:02: [INFO] Revenue difference between the channels is 5%
+03/11/2021 22:04: [INFO] "NO SC Revenue" (230) is higher than "with SC Revenue" (21) -> Alternative B updated to: 10%
+04/11/2021 12:44: [INFO] "NO SC Revenue" (230) is higher than "with SC Revenue" (21) -> Alternative B updated to: 10%
+04/11/2021 17:29: [INFO] "NO SC Revenue" (230) is higher than "with SC Revenue" (21) -> Alternative B updated to: 10%
+15/11/2021 11:28: [INFO] "NO SC Revenue" (230) is higher than "with SC Revenue" (21) -> Alternative B updated to: 10%
+15/11/2021 11:31: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (5) -> Alternative B updated to: 90%
+15/11/2021 11:42: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (5) -> Alternative B updated to: 90%
+16/11/2021 13:33: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (4) -> Alternative B updated to: 90%
+16/11/2021 13:48: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (4) -> Alternative B updated to: 90%
+16/11/2021 13:49: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (4) -> Alternative B updated to: 90%
+16/11/2021 13:52: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (4) -> Alternative B updated to: 90%
+16/11/2021 14:20: [INFO] "NO SC Revenue" (0) is lower than "with SC Revenue" (5) -> Alternative B updated to: 90%
+16/11/2021 14:22: [INFO] "NO SC Revenue" (0) is lower than "with SC Revenue" (5) -> Alternative B updated to: 90%
+16/11/2021 14:50: [INFO] "NO SC Revenue" (0) is lower than "with SC Revenue" (5) -> Alternative B updated to: 90%
+16/11/2021 15:33: [INFO] "NO SC Revenue" (0) is lower than "with SC Revenue" (7) -> Alternative B updated to: 90%
+16/11/2021 15:34: [INFO] "NO SC Revenue" (0) is lower than "with SC Revenue" (7) -> Alternative B updated to: 90%
+16/11/2021 15:39: [INFO] "NO SC Revenue" (240) is pretty equal to "with SC Revenue" (228) -> Alternative B updated to: 50%
+16/11/2021 15:39: [INFO] Revenue difference between the channels is 3%
+16/11/2021 15:42: [INFO] "NO SC Revenue" (240) is pretty equal to "with SC Revenue" (228) -> Alternative B updated to: 50%
+16/11/2021 15:42: [INFO] Revenue difference between the channels is 3%
+16/11/2021 15:44: [INFO] "NO SC Revenue" (0) is lower than "with SC Revenue" (7) -> Alternative B updated to: 90%
+16/11/2021 18:26: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (6) -> Alternative B updated to: 90%
+16/11/2021 18:27: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (6) -> Alternative B updated to: 90%
+16/11/2021 18:27: [INFO] "NO SC Revenue" (1) is lower than "with SC Revenue" (6) -> Alternative B updated to: 90%

@@ -1,0 +1,33 @@
+============================== REPORT ==============================
+
+14:13 Dec 09, 2021: [info] Number of attempts:1 (0 minutes passed)
+14:13 Dec 09, 2021: [info] Number of attempts:2 (0 minutes passed)
+14:13 Dec 09, 2021: [info] Number of attempts:3 (1 minutes passed)
+14:13 Dec 09, 2021: [info] Number of attempts:4 (1 minutes passed)
+14:13 Dec 09, 2021: [info] Number of attempts:5 (1 minutes passed)
+14:13 Dec 09, 2021: [info] Number of attempts:6 (2 minutes passed)
+14:13 Dec 09, 2021: [info] Number of attempts:7 (2 minutes passed)
+14:13 Dec 09, 2021: [info] Number of attempts:8 (2 minutes passed)
+15:36 Dec 09, 2021: [info] You can order your pizza, you fat bastard!
+16:56 Dec 09, 2021: [info] Number of attempts:1 (0 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:2 (0 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:3 (1 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:4 (1 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:5 (1 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:6 (2 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:7 (2 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:8 (2 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:9 (3 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:10 (3 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:11 (3 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:12 (4 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:13 (4 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:14 (4 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:15 (5 minutes passed)
+16:56 Dec 09, 2021: [info] Number of attempts:16 (5 minutes passed)
+Dec 09 17:03: [info] Number of attempts:1 (0 minutes passed)
+Dec 09 17:03: [info] Number of attempts:2 (0 minutes passed)
+Dec 09 17:03: [info] Number of attempts:3 (1 minutes passed)
+Dec 12 14:44: [info] You can order your pizza, you fat bastard!
+Dec 12 14:45: [info] You can order your pizza, you fat bastard!
+Dec 12 14:47: [info] You can order your pizza, you fat bastard!
